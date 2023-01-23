@@ -1,7 +1,7 @@
-package de.raphaeladohrmann.backend.Config;
+package de.raphaeladohrmann.backend.config;
 
-import de.raphaeladohrmann.backend.AppUser.AppUser;
-import de.raphaeladohrmann.backend.AppUser.AppUserService;
+import de.raphaeladohrmann.backend.appUser.AppUser;
+import de.raphaeladohrmann.backend.appUser.AppUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .antMatchers(HttpMethod.POST, "/api/app-users/signup")
                 .permitAll()
-                .antMatchers(HttpMethod.GET, "/api/customers")
+                .antMatchers(HttpMethod.GET, "/api/customer")
                 .hasRole("BASIC")
                 .anyRequest()
                 .authenticated()

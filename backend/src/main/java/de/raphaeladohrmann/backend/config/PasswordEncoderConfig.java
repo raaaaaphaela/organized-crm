@@ -1,4 +1,4 @@
-package de.raphaeladohrmann.backend.Config;
+package de.raphaeladohrmann.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

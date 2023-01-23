@@ -1,4 +1,4 @@
-package de.raphaeladohrmann.backend.AppUser;
+package de.raphaeladohrmann.backend.appUser;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
