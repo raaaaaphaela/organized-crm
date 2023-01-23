@@ -1,9 +1,7 @@
 package de.raphaeladohrmann.backend.customer;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,5 +15,10 @@ public class CustomerController {
     @GetMapping
     public List<Customer> findAll () {
         return customerService.findAllCustomers();
+    }
+
+    @PostMapping
+    public Customer save (@RequestBody Customer customer) {
+        return customerService.save(customer);
     }
 }

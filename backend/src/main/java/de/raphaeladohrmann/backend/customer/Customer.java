@@ -15,9 +15,9 @@ public class Customer {
     private String email;
     private String phone;
     private String street;
-    private String houseNo;
+    private int houseNo;
     private String city;
-    private String postalCode;
+    private int postalCode;
     private String linkToDSGVO;
     private String createdBy;
     private String belongsToCompany;
