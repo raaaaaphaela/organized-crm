@@ -43,7 +43,7 @@ class AppUserServiceTest {
 
 
     @Test
-    public void create_whenUserAlreadyExists_thenReturnException() {
+    void create_whenUserAlreadyExists_thenReturnException() {
 
         // given
         AppUser userInput = new AppUser(
