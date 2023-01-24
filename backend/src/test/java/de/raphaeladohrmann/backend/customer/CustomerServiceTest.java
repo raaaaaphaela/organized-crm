@@ -10,6 +10,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -101,5 +102,61 @@ public class CustomerServiceTest {
         Assertions.assertEquals(actual.getCreatedBy(), user.getUsername());
 
         Mockito.verify(customerRepository).save(customer);
+    }
+
+    @Test
+    void findById_whenCustomerExists_returnCustomer() {
+        // given
+        AppUser user = new AppUser(
+                "1", "UserName", "",
+                "Company", "BASIC");
+
+        Customer customer = new Customer();
+        customer.setId("123");
+
+        CustomerRepository customerRepository = mock(CustomerRepository.class);
+
+        AppUserService appUserService = mock(AppUserService.class);
+
+        CustomerService customerService = new CustomerService(customerRepository, appUserService);
+
+        when(appUserService.getAuthenticatedUser()).thenReturn(user);
+        when(customerRepository.findByIdAndBelongsToCompany(customer.getId(), user.getCompany())).thenReturn(Optional.of(customer));
+
+        // when
+        Optional<Customer> actual = customerService.findById(customer.getId());
+
+        // then
+        Assertions.assertEquals(actual, Optional.of(customer));
+
+        Mockito.verify(customerRepository).findByIdAndBelongsToCompany(customer.getId(), user.getCompany());
+    }
+
+    @Test
+    void findById_whenCustomerExistsButFalseCompany_returnEmptyOptional() {
+        // given
+        AppUser user = new AppUser(
+                "1", "UserName", "",
+                "Company", "BASIC");
+
+        Customer customer = new Customer();
+        customer.setId("123");
+
+        CustomerRepository customerRepository = mock(CustomerRepository.class);
+
+        AppUserService appUserService = mock(AppUserService.class);
+
+        CustomerService customerService = new CustomerService(customerRepository, appUserService);
+
+        when(appUserService.getAuthenticatedUser()).thenReturn(user);
+        when(customerRepository.findByIdAndBelongsToCompany(customer.getId(), user.getCompany())).thenReturn(Optional.empty());
+
+        // when
+        Optional<Customer> actual = customerService.findById(customer.getId());
+
+        // then
+        Assertions.assertEquals(actual, Optional.empty());
+
+        Mockito.verify(customerRepository).findByIdAndBelongsToCompany(customer.getId(), user.getCompany());
     }
 }

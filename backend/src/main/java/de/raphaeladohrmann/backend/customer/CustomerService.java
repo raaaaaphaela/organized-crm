@@ -20,7 +20,7 @@ public class CustomerService {
     }
 
     public Optional<Customer> findById(String id) {
-        return customerRepository.findById(id);
+        return customerRepository.findByIdAndBelongsToCompany(id, appUserService.getAuthenticatedUser().getCompany());
     }
 
     public Customer save(Customer customer) {
@@ -31,6 +31,7 @@ public class CustomerService {
     }
 
     public void deleteById(String id) {
+        //TODO only delete when belongs to autheticated user
         customerRepository.deleteById(id);
     }
 }
