@@ -1,7 +1,7 @@
 package de.raphaeladohrmann.backend.customer;
 
-import de.raphaeladohrmann.backend.appUser.AppUser;
-import de.raphaeladohrmann.backend.appUser.AppUserService;
+import de.raphaeladohrmann.backend.appuser.AppUser;
+import de.raphaeladohrmann.backend.appuser.AppUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package de.raphaeladohrmann.backend.appUser;
+package de.raphaeladohrmann.backend.appuser;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class AppUserControllerTest {
+class AppUserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

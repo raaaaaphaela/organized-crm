@@ -1,4 +1,4 @@
-package de.raphaeladohrmann.backend.appUser;
+package de.raphaeladohrmann.backend.appuser;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

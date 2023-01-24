@@ -1,7 +1,7 @@
 package de.raphaeladohrmann.backend.customer;
 
-import de.raphaeladohrmann.backend.appUser.AppUser;
-import de.raphaeladohrmann.backend.appUser.AppUserService;
+import de.raphaeladohrmann.backend.appuser.AppUser;
+import de.raphaeladohrmann.backend.appuser.AppUserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class CustomerServiceTest {
+class CustomerServiceTest {
 
     @Test
     void findAllCustomers_whenUserHasCustomers_returnCustomerList() {

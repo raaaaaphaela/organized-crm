@@ -1,4 +1,4 @@
-package de.raphaeladohrmann.backend.appUser;
+package de.raphaeladohrmann.backend.appuser;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,13 +14,13 @@ import java.util.Optional;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class AppUserServiceTest {
+class AppUserServiceTest {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Test
-    public void create_whenValidInput_thenReturnNewUser() {
+    void create_whenValidInput_thenReturnNewUser() {
 
         // given
         AppUser userInput = new AppUser(
@@ -67,7 +67,7 @@ public class AppUserServiceTest {
     }
 
     @Test
-    public void findByUsername_whenUserExists_thenReturnUser() {
+    void findByUsername_whenUserExists_thenReturnUser() {
 
         // given
         AppUser user = new AppUser(
@@ -86,7 +86,7 @@ public class AppUserServiceTest {
     }
 
     @Test
-    public void findByUsername_whenUserDoesNotExists_thenReturnNull() {
+    void findByUsername_whenUserDoesNotExists_thenReturnNull() {
 
         // given
         AppUserRepository repository = Mockito.mock(AppUserRepository.class);
@@ -102,7 +102,7 @@ public class AppUserServiceTest {
     }
 
     @Test
-    public void findByUsernameWithoutPassword_whenUserExists_thenReturnUser() {
+    void findByUsernameWithoutPassword_whenUserExists_thenReturnUser() {
 
         // given
         AppUser user = new AppUser(
@@ -123,7 +123,7 @@ public class AppUserServiceTest {
     }
 
     @Test
-    public void findByUsernameWithoutPassword_whenUserDoesNotExists_thenReturnNull() {
+    void findByUsernameWithoutPassword_whenUserDoesNotExists_thenReturnNull() {
 
         // given
         AppUserRepository repository = Mockito.mock(AppUserRepository.class);

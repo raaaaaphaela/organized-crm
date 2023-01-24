@@ -1,4 +1,4 @@
-package de.raphaeladohrmann.backend.appUser;
+package de.raphaeladohrmann.backend.appuser;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;

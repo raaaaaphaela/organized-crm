@@ -1,7 +1,7 @@
 package de.raphaeladohrmann.backend.config;
 
-import de.raphaeladohrmann.backend.appUser.AppUser;
-import de.raphaeladohrmann.backend.appUser.AppUserService;
+import de.raphaeladohrmann.backend.appuser.AppUser;
+import de.raphaeladohrmann.backend.appuser.AppUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

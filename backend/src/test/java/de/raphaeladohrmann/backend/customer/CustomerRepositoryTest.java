@@ -11,7 +11,7 @@ import java.util.List;
 
 @DataMongoTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class CustomerRepositoryTest {
+class CustomerRepositoryTest {
 
     @Autowired
     private CustomerRepository repository;
@@ -30,6 +30,4 @@ public class CustomerRepositoryTest {
         Assertions.assertEquals(actualList, new ArrayList<>(List.of(customer)));
 
     }
-
-
 }

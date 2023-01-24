@@ -9,7 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class CustomerControllerTest {
+class CustomerControllerTest {
 
     @Autowired
     MockMvc mockMvc;
