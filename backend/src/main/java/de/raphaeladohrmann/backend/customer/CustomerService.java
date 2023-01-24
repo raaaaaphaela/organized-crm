@@ -3,7 +3,9 @@ package de.raphaeladohrmann.backend.customer;
 import de.raphaeladohrmann.backend.appuser.AppUser;
 import de.raphaeladohrmann.backend.appuser.AppUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +33,10 @@ public class CustomerService {
     }
 
     public void deleteById(String id) {
-        //TODO only delete when belongs to autheticated user
-        customerRepository.deleteById(id);
+        Optional<Customer> customer = customerRepository.findByIdAndBelongsToCompany(id, appUserService.getAuthenticatedUser().getCompany());
+        if(customer.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        customer.ifPresent(value -> customerRepository.deleteById(value.getId()));
     }
 }

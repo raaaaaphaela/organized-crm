@@ -41,7 +41,6 @@ class AppUserServiceTest {
         Assertions.assertEquals(actual, createdUser);
     }
 
-
     @Test
     void create_whenUserAlreadyExists_thenReturnException() {
 
