@@ -25,9 +25,11 @@ export default function Auth(
         />
     )
 
+    const handleRedirect = shouldRedirect ? navigate : null;
+
     return !isReady
         ? null
         : (user && roles.includes(user.role)
             ? <>{children}</>
-            : (shouldRedirect ? navigate : null))
+            : handleRedirect)
 }
