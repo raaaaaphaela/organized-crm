@@ -25,13 +25,15 @@ export default function Auth(
         />
     )
 
-    return (
-        <>
-            {!isReady
-                ? null
-                : (user && roles.includes(user.role)
-                    ? <>{children}</>
-                    : shouldRedirect ? navigate : null)}
-        </>
-    )
+    const handleRedirect = shouldRedirect ? navigate : null;
+
+    function render() {
+        if (user && roles.includes(user.role)) {
+            return <>{children}</>;
+        } else {
+            return handleRedirect;
+        }
+    }
+
+    return !isReady ? null : render();
 }
