@@ -19,17 +19,19 @@ export default function Auth(
     const navigate = (
         <Navigate
             to={isReady && !user
-            ? `/login?redirect=${encodeURIComponent(location.pathname + location.search)}`
-            : "/"
-        }
+                ? `/login?redirect=${encodeURIComponent(location.pathname + location.search)}`
+                : "/"
+            }
         />
     )
 
-    const handleRedirect = shouldRedirect ? navigate : null;
-
-    return !isReady
-        ? null
-        : (user && roles.includes(user.role)
-            ? <>{children}</>
-            : handleRedirect)
+    return (
+        <>
+            {!isReady
+                ? null
+                : (user && roles.includes(user.role)
+                    ? <>{children}</>
+                    : shouldRedirect ? navigate : null)}
+        </>
+    )
 }
