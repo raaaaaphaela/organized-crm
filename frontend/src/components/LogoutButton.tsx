@@ -14,6 +14,6 @@ export default function LogoutButton() {
         window.localStorage.clear();
     }, [location, navigate]);
     return (
-        <button onClick={logout}>Logout</button>
+        <button className={"btn"} onClick={logout}>Logout</button>
     )
 }

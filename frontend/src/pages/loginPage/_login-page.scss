@@ -1,0 +1,39 @@
+@import "globals";
+
+.login-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .login-page_container {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 10px 20px 15px silver;
+    background-color: $light-bg;
+    border-radius: 10px;
+    padding: 3rem 4rem;
+    margin-top: 4rem;
+  }
+
+  form {
+    margin-top: 1rem;
+
+    input {
+      padding: 7px 5px;
+      margin: 5px 0;
+    }
+
+    button.btn--green {
+      margin: 0.5rem 0;
+      width: fit-content;
+    }
+
+    .login-page_controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}

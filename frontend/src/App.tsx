@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.scss';
+import './_app.scss';
 import {BrowserRouter} from "react-router-dom";
 import Root from "./Root";
 

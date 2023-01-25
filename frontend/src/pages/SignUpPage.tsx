@@ -2,7 +2,7 @@ import React, {FormEvent, useCallback, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 
-export default function SignUpPage () {
+export default function SignUpPage() {
     const [credentials, setCredentials] = useState({
         username: "",
         password: ""
@@ -41,7 +41,7 @@ export default function SignUpPage () {
     );
 
     return (
-        <div className="SignUpPage">
+        <div className="signup__container">
             <h1>Sign Up</h1>
 
             {errors.length > 0 && (
@@ -71,7 +71,7 @@ export default function SignUpPage () {
                 </div>
 
                 <div>
-                    <button>Sign Up</button>
+                    <button className={"btn"}>Sign Up</button>
                 </div>
             </form>
         </div>
