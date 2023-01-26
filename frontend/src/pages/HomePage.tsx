@@ -2,6 +2,7 @@ import {Button, Grid, Typography} from "@mui/material";
 import EnhancedTable from "../components/table/EnhancedTable";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 export interface Customer {
     id: string,
@@ -24,9 +25,11 @@ export default function HomePage() {
         (async () => {
             const response = await axios.get("/api/customer")
             setCustomers(response.data)
-
         })();
-    }, [customers]);
+    }, []);
+
+    const navigate = useNavigate();
+    const newCustomer = () => navigate("/new", {replace: true});
 
     return (
         <Grid
@@ -39,7 +42,7 @@ export default function HomePage() {
                 KUNDENÜBERSICHT
             </Typography>
 
-            <Button sx={{my: 4}} variant="contained">Neuer Kunde</Button>
+            <Button sx={{my: 4}} variant="contained" onClick={newCustomer}>Neuer Kunde</Button>
 
             <EnhancedTable rows={customers}/>
         </Grid>

@@ -10,6 +10,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import NewCustomer from "./pages/NewCustomer";
 
 export default function Root() {
 
@@ -47,6 +48,11 @@ export default function Root() {
                         <Route path={"/"} element={
                             <Auth roles={["BASIC", "ADMIN"]}>
                                 <HomePage/>
+                            </Auth>
+                        }/>
+                        <Route path={"/new"} element={
+                            <Auth roles={["BASIC", "ADMIN"]}>
+                                <NewCustomer/>
                             </Auth>
                         }/>
                     </Routes>
