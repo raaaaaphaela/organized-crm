@@ -82,7 +82,7 @@ export const data: Data[] = [
         id: "2",
         firstName: "Karl",
         lastName: "Schreiber",
-        email: "a@gmail.com",
+        email: "karl@gmail.com",
         phone: "+40162dsf7338",
         street: "Streetname",
         houseNo: 9,
