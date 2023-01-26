@@ -1,7 +1,7 @@
 import React, {FormEvent, useCallback, useMemo, useState} from "react";
-import {Link, useNavigate, useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import axios from "axios";
-import {Box, Button, Grid, TextField, Typography} from "@mui/material";
+import {Box, Button, TextField, Typography} from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
@@ -91,15 +91,6 @@ export default function LoginPage() {
                 >
                     Einloggen
                 </Button>
-                <Grid container>
-                    <Grid item>
-                        <Typography sx={{typography: 'body1'}}> Noch keinen Account?&nbsp;
-                            <Link to={"/signup"}>
-                                {"Hier registrieren."}
-                            </Link>
-                        </Typography>
-                    </Grid>
-                </Grid>
             </Box>
         </Box>
     )

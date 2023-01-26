@@ -3,7 +3,6 @@ import Auth from "./components/Auth";
 import LoginPage from "./pages/LoginPage";
 import {useMemo} from "react";
 import NoAuth from "./components/NoAuth";
-import SignUpPage from "./pages/SignUpPage";
 import HomePage from "./pages/HomePage";
 import NavBar from "./components/NavBar";
 import {Container, createTheme, ThemeProvider} from "@mui/material";
@@ -43,11 +42,6 @@ export default function Root() {
                         <Route path={"/login"} element={
                             <NoAuth redirect={redirect}>
                                 <LoginPage/>
-                            </NoAuth>
-                        }/>
-                        <Route path={"/signup"} element={
-                            <NoAuth redirect={redirect}>
-                                <SignUpPage/>
                             </NoAuth>
                         }/>
                         <Route path={"/"} element={
