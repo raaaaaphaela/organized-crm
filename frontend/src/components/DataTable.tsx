@@ -20,7 +20,8 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import {visuallyHidden} from '@mui/utils';
-import { Data } from '../pages/data';
+import {Data, tableHeads} from "../pages/data";
+
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -69,74 +70,14 @@ interface HeadCell {
     numeric: boolean;
 }
 
-const headCells: readonly HeadCell[] = [
-    {
-        id: 'id',
+const headCells: readonly HeadCell[] = tableHeads.map(head => {
+    return {
+        id: head.id,
         numeric: false,
         disablePadding: true,
-        label: 'ID',
-    },
-    {
-        id: 'firstName',
-        numeric: false,
-        disablePadding: false,
-        label: 'Vorname',
-    },
-    {
-        id: 'lastName',
-        numeric: false,
-        disablePadding: false,
-        label: 'Nachname',
-    },
-    {
-        id: 'email',
-        numeric: false,
-        disablePadding: false,
-        label: 'E-Mail',
-    },
-    {
-        id: 'phone',
-        numeric: false,
-        disablePadding: false,
-        label: 'Telefon',
-    },
-    {
-        id: 'street',
-        numeric: false,
-        disablePadding: false,
-        label: 'Straße',
-    },
-    {
-        id: 'houseNo',
-        numeric: false,
-        disablePadding: false,
-        label: 'HausNr.',
-    },
-    {
-        id: 'city',
-        numeric: false,
-        disablePadding: false,
-        label: 'Stadt',
-    },
-    {
-        id: 'postalCode',
-        numeric: false,
-        disablePadding: false,
-        label: 'PLZ',
-    },
-    {
-        id: 'linkToDSGVO',
-        numeric: false,
-        disablePadding: false,
-        label: 'DSGVO',
-    },
-    {
-        id: 'createdBy',
-        numeric: false,
-        disablePadding: false,
-        label: 'Ersteller',
-    },
-];
+        label: head.label
+    }}
+);
 
 interface EnhancedTableProps {
     numSelected: number;

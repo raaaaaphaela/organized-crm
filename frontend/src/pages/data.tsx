@@ -1,3 +1,55 @@
+export type head = {
+    id: keyof Data,
+    label: string,
+}
+
+export const tableHeads: head[] = [
+    {
+        id: 'id',
+        label: 'ID',
+    },
+    {
+        id: 'firstName',
+        label: 'Vorname',
+    },
+    {
+        id: 'lastName',
+        label: 'Nachname',
+    },
+    {
+        id: 'email',
+        label: 'E-Mail',
+    },
+    {
+        id: 'phone',
+        label: 'Telefon',
+    },
+    {
+        id: 'street',
+        label: 'Straße',
+    },
+    {
+        id: 'houseNo',
+        label: 'HausNr.',
+    },
+    {
+        id: 'city',
+        label: 'Stadt',
+    },
+    {
+        id: 'postalCode',
+        label: 'PLZ',
+    },
+    {
+        id: 'linkToDSGVO',
+        label: 'DSGVO',
+    },
+    {
+        id: 'createdBy',
+        label: 'Ersteller',
+    },
+]
+
 export interface Data {
     id: string,
     firstName: string,
@@ -27,7 +79,7 @@ export const data: Data[] = [
         createdBy: "Raphaela",
     },
     {
-        id: "",
+        id: "2",
         firstName: "Karl",
         lastName: "Schreiber",
         email: "a@gmail.com",
