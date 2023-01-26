@@ -1,5 +1,5 @@
 import {Button, Grid, Typography} from "@mui/material";
-import EnhancedTable from "../components/DataTable";
+import EnhancedTable from "../components/table/EnhancedTable";
 import {data} from "./data";
 
 export default function HomePage() {
