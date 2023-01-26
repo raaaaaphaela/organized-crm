@@ -1,6 +1,7 @@
 import {useCallback} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
+import {Button} from "@mui/material";
 
 export default function LogoutButton() {
 
@@ -13,7 +14,8 @@ export default function LogoutButton() {
         window.document.cookie = "";
         window.localStorage.clear();
     }, [location, navigate]);
+
     return (
-        <button className={"btn"} onClick={logout}>Logout</button>
+        <Button variant="outlined" color="secondary" onClick={logout}>Logout</Button>
     )
 }
