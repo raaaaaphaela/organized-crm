@@ -1,11 +1,16 @@
 import {Route, Routes, useSearchParams} from "react-router-dom";
 import Auth from "./components/Auth";
-import LoginPage from "./pages/loginPage/LoginPage";
+import LoginPage from "./pages/LoginPage";
 import {useMemo} from "react";
 import NoAuth from "./components/NoAuth";
 import SignUpPage from "./pages/SignUpPage";
 import HomePage from "./pages/HomePage";
-import NavBar from "./components/navBar/NavBar";
+import NavBar from "./components/NavBar";
+import {Container, createTheme, ThemeProvider} from "@mui/material";
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 export default function Root() {
 
@@ -14,28 +19,45 @@ export default function Root() {
         [searchParam]
     );
 
+    const theme = createTheme({
+        typography: {
+            fontFamily: 'Roboto'
+        },
+        palette: {
+            mode: 'light',
+            primary: {
+                main: '#305252'
+            },
+            secondary: {
+                main: '#B7D5D4'
+            }
+        }
+    });
+
     return (
         <>
-            <NavBar/>
-            <div className={"app__container"}>
-                <Routes>
-                    <Route path={"/login"} element={
-                        <NoAuth redirect={redirect}>
-                            <LoginPage/>
-                        </NoAuth>
-                    }/>
-                    <Route path={"/signup"} element={
-                        <NoAuth redirect={redirect}>
-                            <SignUpPage/>
-                        </NoAuth>
-                    }/>
-                    <Route path={"/"} element={
-                        <Auth roles={["BASIC", "ADMIN"]}>
-                            <HomePage/>
-                        </Auth>
-                    }/>
-                </Routes>
-            </div>
+            <ThemeProvider theme={theme}>
+                <NavBar/>
+                <Container>
+                    <Routes>
+                        <Route path={"/login"} element={
+                            <NoAuth redirect={redirect}>
+                                <LoginPage/>
+                            </NoAuth>
+                        }/>
+                        <Route path={"/signup"} element={
+                            <NoAuth redirect={redirect}>
+                                <SignUpPage/>
+                            </NoAuth>
+                        }/>
+                        <Route path={"/"} element={
+                            <Auth roles={["BASIC", "ADMIN"]}>
+                                <HomePage/>
+                            </Auth>
+                        }/>
+                    </Routes>
+                </Container>
+            </ThemeProvider>
         </>
     )
 }

@@ -1,10 +1,9 @@
-import LogoutButton from "../components/LogoutButton";
+import {Typography} from "@mui/material";
 
 export default function HomePage() {
     return (
-        <div className={"home"}>
+        <Typography sx={{typography: 'body1'}}>
             Homepage
-            <LogoutButton/>
-        </div>
+        </Typography>
     )
 }
