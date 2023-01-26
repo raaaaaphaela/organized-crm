@@ -37,7 +37,7 @@ export default function Root() {
         <>
             <ThemeProvider theme={theme}>
                 <NavBar/>
-                <Container>
+                <Container sx={{pt: 6}}>
                     <Routes>
                         <Route path={"/login"} element={
                             <NoAuth redirect={redirect}>
