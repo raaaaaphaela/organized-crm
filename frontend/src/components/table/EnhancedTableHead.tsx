@@ -1,4 +1,3 @@
-import {Data, tableHeads} from "../../pages/data";
 import * as React from "react";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
@@ -8,26 +7,29 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Box from "@mui/material/Box";
 import {visuallyHidden} from "@mui/utils";
 import {Order} from "./EnhancedTable";
+import {tableHeads} from "./table-helpers";
+import {Customer} from "../../pages/HomePage";
 
 interface HeadCell {
     disablePadding: boolean;
-    id: keyof Data;
+    id: keyof Customer;
     label: string;
     numeric: boolean;
 }
 
 const headCells: readonly HeadCell[] = tableHeads.map(head => {
-    return {
-        id: head.id,
-        numeric: false,
-        disablePadding: false,
-        label: head.label
-    }}
+        return {
+            id: head.id,
+            numeric: false,
+            disablePadding: false,
+            label: head.label
+        }
+    }
 );
 
 interface EnhancedTableProps {
     numSelected: number;
-    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
+    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Customer) => void;
     onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
     order: Order;
     orderBy: string;
@@ -38,7 +40,7 @@ export default function EnhancedTableHead(props: EnhancedTableProps) {
     const {onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort} =
         props;
     const createSortHandler =
-        (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+        (property: keyof Customer) => (event: React.MouseEvent<unknown>) => {
             onRequestSort(event, property);
         };
 

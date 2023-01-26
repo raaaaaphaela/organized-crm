@@ -10,9 +10,9 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import {Data} from "../../pages/data";
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
+import {Customer} from "../../pages/HomePage";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -54,9 +54,9 @@ function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) 
     return stabilizedThis.map((el) => el[0]);
 }
 
-export default function EnhancedTable({rows}: { rows: Data[] }) {
+export default function EnhancedTable({rows}: { rows: Customer[] }) {
     const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof Data>('lastName');
+    const [orderBy, setOrderBy] = React.useState<keyof Customer>('lastName');
     const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
@@ -64,7 +64,7 @@ export default function EnhancedTable({rows}: { rows: Data[] }) {
 
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
-        property: keyof Data,
+        property: keyof Customer,
     ) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
@@ -147,11 +147,11 @@ export default function EnhancedTable({rows}: { rows: Data[] }) {
                                     return (
                                         <TableRow
                                             hover
-                                            onClick={(event) => handleClick(event, row.id)}
+                                            onClick={(event) => handleClick(event, row.lastName)}
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
-                                            key={row.id}
+                                            key={row.lastName}
                                             selected={isItemSelected}
                                         >
                                             <TableCell padding="checkbox">
@@ -169,10 +169,9 @@ export default function EnhancedTable({rows}: { rows: Data[] }) {
                                                 scope="row"
                                                 padding="normal"
                                             >
-                                                {row.id}
+                                                {row.lastName}
                                             </TableCell>
                                             <TableCell align="left">{row.firstName}</TableCell>
-                                            <TableCell align="left">{row.lastName}</TableCell>
                                             <TableCell align="left">{row.email}</TableCell>
                                             <TableCell align="left">{row.phone}</TableCell>
                                             <TableCell align="left">{row.street}</TableCell>
