@@ -6,11 +6,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {Information} from "../../pages/EditCustomerPage";
+import {Information} from "../../customer-form";
 
 export default function BasicTable({information}: { information?: Information[]}) {
     return (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ boxShadow: 4, mt: 1, mb: 3}}>
             <Table aria-label="simple table">
                 <TableHead>
                     <TableRow>
@@ -22,7 +22,7 @@ export default function BasicTable({information}: { information?: Information[]}
                 <TableBody>
                     {information && information.map((row) => (
                         <TableRow
-                            key={row.dateTime}
+                            key={row.dateTime + row.content}
                             sx={{'&:last-child td, &:last-child th': {border: 0}}}
                         >
                             <TableCell width="20%" align="left">{row.dateTime}</TableCell>

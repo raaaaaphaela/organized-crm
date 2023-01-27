@@ -3,21 +3,7 @@ import Paper from "@mui/material/Paper";
 import React, {FormEvent, useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import {Information} from "../../pages/EditCustomerPage";
-
-export type FormCustomer = {
-    firstName: string,
-    lastName: string,
-    email: string,
-    phone: string,
-    street: string,
-    houseNo: number,
-    city: string,
-    postalCode: number,
-    linkToDSGVO: string,
-    information: Information[],
-    createdBy: string,
-}
+import {FormCustomer} from "../../customer-form";
 
 const defaultCustomer: FormCustomer = {
     "firstName": "",
@@ -47,7 +33,7 @@ export default function Form(
     const toHome = () => navigate("/", {replace: true});
 
     useEffect(() => {
-         existingCustomer && setCustomer(existingCustomer);
+        existingCustomer && setCustomer(existingCustomer);
     }, [existingCustomer])
 
 
@@ -61,7 +47,6 @@ export default function Form(
 
     const save = useCallback(async (e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
-
             setErrors([]);
 
             try {
@@ -78,7 +63,7 @@ export default function Form(
     );
 
     return (
-        <Paper variant={"outlined"} sx={{my: 3, p: {xs: 2, md: 3}}}>
+        <Paper variant={"outlined"} sx={{boxShadow: 4, my: 3, p: {xs: 2, md: 3}}}>
             <Grid container component={"form"} spacing={3} sx={{pt: 2}} onSubmit={save}>
                 <Grid item xs={12} sm={6}>
                     <TextField

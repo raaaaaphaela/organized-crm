@@ -6,10 +6,10 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import {Information} from "../../pages/EditCustomerPage";
 import axios from "axios";
 import {Grid} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import {Information} from "../../customer-form";
 
 export default function FormDialog({id}: { id: string | undefined }) {
 
@@ -64,9 +64,9 @@ export default function FormDialog({id}: { id: string | undefined }) {
                 Neuer Eintrag
             </Button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Neuer Eintrag:</DialogTitle>
+                <DialogTitle sx={{pl: 4, pt: 4}}>Neuer Eintrag:</DialogTitle>
                 <DialogContent>
-                    <Grid container component={"form"} spacing={3} sx={{pt: 2}} onSubmit={save}>
+                    <Grid container component={"form"} spacing={3} sx={{p: 4}} onSubmit={save}>
                         <TextField
                             id="datetime-local"
                             label="Datum"
@@ -92,9 +92,9 @@ export default function FormDialog({id}: { id: string | undefined }) {
                             variant="standard"
                             onChange={handleChange}
                         />
-                        <DialogActions>
+                        <DialogActions sx={{pt: 4}}>
+                            <Button onClick={handleClose} variant={"contained"} type={"submit"}>Speichern</Button>
                             <Button onClick={handleClose}>Abbrechen</Button>
-                            <Button onClick={handleClose} type={"submit"}>Speichern</Button>
                         </DialogActions>
                     </Grid>
                 </DialogContent>
