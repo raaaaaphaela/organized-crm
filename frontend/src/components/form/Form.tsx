@@ -1,23 +1,24 @@
 import {Button, Grid, TextField} from "@mui/material";
 import Paper from "@mui/material/Paper";
-import React, {FormEvent, useCallback, useState} from "react";
+import React, {FormEvent, useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
-type newCustomerType = {
-    "firstName": string,
-    "lastName": string,
-    "email": string,
-    "phone": string,
-    "street": string,
-    "houseNo": number,
-    "city": string,
-    "postalCode": string,
-    "linkToDSGVO": string,
-    "actions": string[],
+export type FormCustomer = {
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string,
+    street: string,
+    houseNo: number,
+    city: string,
+    postalCode: number,
+    linkToDSGVO: string,
+    action: string[],
+    createdBy: string,
 }
 
-const defaultCustomer= {
+const defaultCustomer: FormCustomer = {
     "firstName": "",
     "lastName": "",
     "email": "",
@@ -25,25 +26,36 @@ const defaultCustomer= {
     "street": "",
     "houseNo": 0,
     "city": "",
-    "postalCode": "",
+    "postalCode": 0,
     "linkToDSGVO": "",
-    "actions": [],
+    "action": [],
+    "createdBy": "",
 }
-export default function Form() {
 
-    const [newCustomer, setNewCustomer] = useState<newCustomerType>(defaultCustomer);
+export default function Form(
+    {
+        existingCustomer
+    }: {
+        existingCustomer?: FormCustomer
+    }) {
+
+    const [customer, setCustomer] = useState<FormCustomer>(defaultCustomer);
     const [errors, setErrors] = useState<string[]>([]);
 
     const navigate = useNavigate();
     const toHome = () => navigate("/", {replace: true});
 
+    useEffect(() => {
+         existingCustomer && setCustomer(existingCustomer);
+    }, [existingCustomer])
+
+
     const handleChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             const {name, value} = e.target;
-            setNewCustomer({...newCustomer, [name]: value});
-            console.log(newCustomer);
+            setCustomer({...customer, [name]: value});
         },
-        [newCustomer, setNewCustomer]
+        [customer, setCustomer]
     );
 
     const save = useCallback(async (e: FormEvent<HTMLFormElement>) => {
@@ -52,7 +64,7 @@ export default function Form() {
             setErrors([]);
 
             try {
-                await axios.post("/api/customer", newCustomer);
+                await axios.post("/api/customer", customer);
             } catch (e) {
                 setErrors((errors) => [
                     ...errors,
@@ -61,116 +73,124 @@ export default function Form() {
                 console.log(errors)
             }
         },
-        [newCustomer, errors]
+        [customer, errors]
     );
 
     return (
-            <Paper variant={"outlined"} sx={{my: 3, p: {xs: 2, md: 3}}}>
-                <Grid container component={"form"} spacing={3} sx={{pt: 2}} onSubmit={save}>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            required
-                            id={"firstName"}
-                            name="firstName"
-                            label="Vorname"
-                            fullWidth
-                            variant="standard"
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            required
-                            id={"lastName"}
-                            name="lastName"
-                            label="Nachname"
-                            fullWidth
-                            variant="standard"
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            required
-                            id={"email"}
-                            name="email"
-                            type={"email"}
-                            label="E-Mail"
-                            fullWidth
-                            variant="standard"
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            required
-                            id={"phone"}
-                            name="phone"
-                            label="Telefon"
-                            fullWidth
-                            variant="standard"
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                        <TextField
-                            required
-                            id={"street"}
-                            name="street"
-                            label="Straße"
-                            fullWidth
-                            variant="standard"
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={2}>
-                        <TextField
-                            required
-                            id={"houseNo"}
-                            name="houseNo"
-                            label="Nr."
-                            fullWidth
-                            variant="standard"
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                        <TextField
-                            required
-                            id={"city"}
-                            name="city"
-                            label="Stadt"
-                            fullWidth
-                            variant="standard"
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={2}>
-                        <TextField
-                            required
-                            id={"postalCode"}
-                            name="postalCode"
-                            label="PLZ"
-                            fullWidth
-                            variant="standard"
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Button
-                        type={"submit"}
-                        variant="contained"
-                        sx={{mt: 3, ml: 3}}
-                    >
-                        Speichern
-                    </Button>
-                    <Button
-                        onClick={toHome}
-                        variant="outlined"
-                        sx={{mt: 3, ml: 3}}
-                    >
-                        Abbrechen
-                    </Button>
+        <Paper variant={"outlined"} sx={{my: 3, p: {xs: 2, md: 3}}}>
+            <Grid container component={"form"} spacing={3} sx={{pt: 2}} onSubmit={save}>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        required
+                        id={"firstName"}
+                        name="firstName"
+                        label="Vorname"
+                        value={customer.firstName}
+                        fullWidth
+                        variant="standard"
+                        onChange={handleChange}
+                    />
                 </Grid>
-            </Paper>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        required
+                        id={"lastName"}
+                        name="lastName"
+                        label="Nachname"
+                        value={customer.lastName}
+                        fullWidth
+                        variant="standard"
+                        onChange={handleChange}
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        required
+                        id={"email"}
+                        name="email"
+                        type={"email"}
+                        label="E-Mail"
+                        value={customer.email}
+                        fullWidth
+                        variant="standard"
+                        onChange={handleChange}
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        required
+                        id={"phone"}
+                        name="phone"
+                        label="Telefon"
+                        value={customer.phone}
+                        fullWidth
+                        variant="standard"
+                        onChange={handleChange}
+                    />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                    <TextField
+                        required
+                        id={"street"}
+                        name="street"
+                        label="Straße"
+                        value={customer.street}
+                        fullWidth
+                        variant="standard"
+                        onChange={handleChange}
+                    />
+                </Grid>
+                <Grid item xs={12} sm={2}>
+                    <TextField
+                        required
+                        id={"houseNo"}
+                        name="houseNo"
+                        label="Nr."
+                        value={customer.houseNo}
+                        fullWidth
+                        variant="standard"
+                        onChange={handleChange}
+                    />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                    <TextField
+                        required
+                        id={"city"}
+                        name="city"
+                        label="Stadt"
+                        value={customer.city}
+                        fullWidth
+                        variant="standard"
+                        onChange={handleChange}
+                    />
+                </Grid>
+                <Grid item xs={12} sm={2}>
+                    <TextField
+                        required
+                        id={"postalCode"}
+                        name="postalCode"
+                        label="PLZ"
+                        value={customer.postalCode}
+                        fullWidth
+                        variant="standard"
+                        onChange={handleChange}
+                    />
+                </Grid>
+                <Button
+                    type={"submit"}
+                    variant="contained"
+                    sx={{mt: 3, ml: 3}}
+                >
+                    Speichern
+                </Button>
+                <Button
+                    onClick={toHome}
+                    variant="outlined"
+                    sx={{mt: 3, ml: 3}}
+                >
+                    Abbrechen
+                </Button>
+            </Grid>
+        </Paper>
     )
 }
