@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/customer")
+@RequestMapping("/api/customers")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -26,6 +26,11 @@ public class CustomerController {
     @PostMapping
     public Customer save(@RequestBody Customer customer) {
         return customerService.save(customer);
+    }
+
+    @PostMapping("/info/{customerId}")
+    public Customer saveInformation(@PathVariable String customerId, @RequestBody Information information) {
+        return customerService.saveInformation(customerId, information);
     }
 
     @DeleteMapping("/{id}")

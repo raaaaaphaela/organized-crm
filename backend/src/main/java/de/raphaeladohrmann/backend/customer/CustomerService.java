@@ -39,4 +39,18 @@ public class CustomerService {
         }
         customer.ifPresent(value -> customerRepository.deleteById(value.getId()));
     }
+
+    public Customer saveInformation(String customerId, Information information) {
+        Optional<Customer> updatedCustomer = findById(customerId);
+
+        if(updatedCustomer.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        information.setUsername(appUserService.getAuthenticatedUser().getUsername());
+
+        updatedCustomer.get().getInformation().add(information);
+
+        return customerRepository.save(updatedCustomer.get());
+    }
 }

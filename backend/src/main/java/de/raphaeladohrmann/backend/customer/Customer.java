@@ -21,7 +21,7 @@ public class Customer {
     private String city;
     private int postalCode;
     private String linkToDSGVO;
-    private List<Action> actions;
+    private List<Information> information;
     private String createdBy;
     private String belongsToCompany;
 }

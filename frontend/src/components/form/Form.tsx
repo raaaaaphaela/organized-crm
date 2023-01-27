@@ -3,6 +3,7 @@ import Paper from "@mui/material/Paper";
 import React, {FormEvent, useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {Information} from "../../pages/EditCustomerPage";
 
 export type FormCustomer = {
     firstName: string,
@@ -14,7 +15,7 @@ export type FormCustomer = {
     city: string,
     postalCode: number,
     linkToDSGVO: string,
-    action: string[],
+    information: Information[],
     createdBy: string,
 }
 
@@ -28,7 +29,7 @@ const defaultCustomer: FormCustomer = {
     "city": "",
     "postalCode": 0,
     "linkToDSGVO": "",
-    "action": [],
+    "information": [],
     "createdBy": "",
 }
 
@@ -64,7 +65,7 @@ export default function Form(
             setErrors([]);
 
             try {
-                await axios.post("/api/customer", customer);
+                await axios.post("/api/customers", customer);
             } catch (e) {
                 setErrors((errors) => [
                     ...errors,
