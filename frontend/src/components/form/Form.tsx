@@ -3,20 +3,7 @@ import Paper from "@mui/material/Paper";
 import React, {FormEvent, useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-
-export type FormCustomer = {
-    firstName: string,
-    lastName: string,
-    email: string,
-    phone: string,
-    street: string,
-    houseNo: number,
-    city: string,
-    postalCode: number,
-    linkToDSGVO: string,
-    action: string[],
-    createdBy: string,
-}
+import {FormCustomer, Information} from "../../customer-form";
 
 const defaultCustomer: FormCustomer = {
     "firstName": "",
@@ -28,7 +15,7 @@ const defaultCustomer: FormCustomer = {
     "city": "",
     "postalCode": 0,
     "linkToDSGVO": "",
-    "action": [],
+    "information": [],
     "createdBy": "",
 }
 
@@ -40,14 +27,32 @@ export default function Form(
     }) {
 
     const [customer, setCustomer] = useState<FormCustomer>(defaultCustomer);
+    const [information, setInformation] = useState<Information>(
+        {
+            content: "",
+            dateTime: new Date()
+                .toISOString()
+                .substring(0, (new Date()
+                    .toISOString()
+                    .indexOf("T") | 0) + 6 | 0),
+            username: ""
+        }
+    );
+
     const [errors, setErrors] = useState<string[]>([]);
 
     const navigate = useNavigate();
     const toHome = () => navigate("/", {replace: true});
 
     useEffect(() => {
-         existingCustomer && setCustomer(existingCustomer);
-    }, [existingCustomer])
+        existingCustomer && setCustomer(existingCustomer);
+
+        // if the form is for a new customer and information is updated
+        !existingCustomer && setCustomer({
+            ...customer,
+            information: new Array(information)
+        })
+    }, [existingCustomer, information, customer])
 
 
     const handleChange = useCallback(
@@ -58,13 +63,25 @@ export default function Form(
         [customer, setCustomer]
     );
 
+    const handleInformationChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+
+            const value = e.target.value;
+            setInformation({
+                ...information,
+                content: value
+            });
+        },
+        [information, setInformation]
+    );
+
     const save = useCallback(async (e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
 
             setErrors([]);
 
             try {
-                await axios.post("/api/customer", customer);
+                await axios.post("/api/customers", customer);
             } catch (e) {
                 setErrors((errors) => [
                     ...errors,
@@ -77,7 +94,7 @@ export default function Form(
     );
 
     return (
-        <Paper variant={"outlined"} sx={{my: 3, p: {xs: 2, md: 3}}}>
+        <Paper variant={"outlined"} sx={{boxShadow: 4, my: 3, p: {xs: 2, md: 3}}}>
             <Grid container component={"form"} spacing={3} sx={{pt: 2}} onSubmit={save}>
                 <Grid item xs={12} sm={6}>
                     <TextField
@@ -176,6 +193,20 @@ export default function Form(
                         onChange={handleChange}
                     />
                 </Grid>
+                {!existingCustomer &&
+                    <Grid item xs={12}>
+                        <TextField
+                            id={"information"}
+                            name="information"
+                            label="Zusätzliche Informationen"
+                            value={information.content}
+                            fullWidth
+                            multiline
+                            variant="standard"
+                            onChange={handleInformationChange}
+                        />
+                    </Grid>
+                }
                 <Button
                     type={"submit"}
                     variant="contained"

@@ -17,13 +17,14 @@ export interface Customer {
     linkToDSGVO: string,
     createdBy: string,
 }
+
 export default function HomePage() {
 
     const [customers, setCustomers] = useState<Customer[]>([]);
 
     useEffect(() => {
         (async () => {
-            const response = await axios.get("/api/customer")
+            const response = await axios.get("/api/customers")
             setCustomers(response.data)
         })();
     }, []);
@@ -41,9 +42,7 @@ export default function HomePage() {
             <Typography variant="h4">
                 KUNDENÜBERSICHT
             </Typography>
-
             <Button sx={{my: 4}} variant="contained" onClick={newCustomer}>Neuer Kunde</Button>
-
             <EnhancedTable rows={customers}/>
         </Grid>
     )

@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .antMatchers(HttpMethod.POST, "/api/app-users/signup")
                 .permitAll()
-                .antMatchers(HttpMethod.GET, "/api/customer")
+                .antMatchers(HttpMethod.GET, "/api/customers")
                 .hasRole("BASIC")
                 .anyRequest()
                 .authenticated()

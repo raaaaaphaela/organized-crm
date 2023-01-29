@@ -27,6 +27,12 @@ public class CustomerService {
 
     public Customer save(Customer customer) {
         AppUser currentUser = appUserService.getAuthenticatedUser();
+
+        // there is max one information if it is the initial customer save
+        if (customer.getInformation().size() == 1) {
+            customer.getInformation().get(0).setUsername(currentUser.getUsername());
+        }
+
         customer.setBelongsToCompany(currentUser.getCompany());
         customer.setCreatedBy(currentUser.getUsername());
         return customerRepository.save(customer);
@@ -34,9 +40,23 @@ public class CustomerService {
 
     public void deleteById(String id) {
         Optional<Customer> customer = customerRepository.findByIdAndBelongsToCompany(id, appUserService.getAuthenticatedUser().getCompany());
-        if(customer.isEmpty()) {
+        if (customer.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         customer.ifPresent(value -> customerRepository.deleteById(value.getId()));
+    }
+
+    public Customer saveInformation(String customerId, Information information) {
+        Optional<Customer> updatedCustomer = findById(customerId);
+
+        if (updatedCustomer.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        information.setUsername(appUserService.getAuthenticatedUser().getUsername());
+
+        updatedCustomer.get().getInformation().add(information);
+
+        return customerRepository.save(updatedCustomer.get());
     }
 }

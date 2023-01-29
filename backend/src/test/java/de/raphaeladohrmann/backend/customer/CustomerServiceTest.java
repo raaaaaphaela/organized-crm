@@ -83,6 +83,7 @@ class CustomerServiceTest {
                 "Company", "BASIC");
 
         Customer customer = new Customer();
+        customer.setInformation(new ArrayList<>());
 
         CustomerRepository customerRepository = mock(CustomerRepository.class);
 
@@ -101,6 +102,35 @@ class CustomerServiceTest {
         Assertions.assertEquals(actual.getBelongsToCompany(), user.getCompany());
         Assertions.assertEquals(actual.getCreatedBy(), user.getUsername());
 
+        Mockito.verify(customerRepository).save(customer);
+    }
+
+    @Test
+    void save_whenCorrectInputWithInformation_returnNewCustomerWithUsernameInInformation() {
+        // given
+        AppUser user = new AppUser(
+                "1", "UserName", "",
+                "Company", "BASIC");
+
+        Information info = new Information("Knieschmerz","2023-01-27T22:11", "");
+        Customer customer = new Customer();
+        customer.setInformation(new ArrayList<>(List.of(info)));
+
+        CustomerRepository customerRepository = mock(CustomerRepository.class);
+
+        AppUserService appUserService = mock(AppUserService.class);
+
+        CustomerService customerService = new CustomerService(customerRepository, appUserService);
+
+        when(appUserService.getAuthenticatedUser()).thenReturn(user);
+        when(customerRepository.save(customer)).thenReturn(customer);
+
+        // when
+        Customer actual = customerService.save(customer);
+        System.out.println(customer);
+
+        // then
+        Assertions.assertEquals(actual.getInformation().get(0).getUsername(), user.getUsername());
         Mockito.verify(customerRepository).save(customer);
     }
 
