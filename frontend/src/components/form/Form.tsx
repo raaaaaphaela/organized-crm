@@ -3,7 +3,7 @@ import Paper from "@mui/material/Paper";
 import React, {FormEvent, useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import {FormCustomer} from "../../customer-form";
+import {FormCustomer, Information} from "../../customer-form";
 
 const defaultCustomer: FormCustomer = {
     "firstName": "",
@@ -27,6 +27,18 @@ export default function Form(
     }) {
 
     const [customer, setCustomer] = useState<FormCustomer>(defaultCustomer);
+    const [information, setInformation] = useState<Information>(
+        {
+            content: "",
+            dateTime: new Date()
+                .toISOString()
+                .substring(0, (new Date()
+                    .toISOString()
+                    .indexOf("T") | 0) + 6 | 0),
+            username: ""
+        }
+    );
+
     const [errors, setErrors] = useState<string[]>([]);
 
     const navigate = useNavigate();
@@ -34,7 +46,13 @@ export default function Form(
 
     useEffect(() => {
         existingCustomer && setCustomer(existingCustomer);
-    }, [existingCustomer])
+
+        // if the form is for a new customer and information is updated
+        !existingCustomer && setCustomer({
+            ...customer,
+            information: new Array(information)
+        })
+    }, [existingCustomer, information, customer])
 
 
     const handleChange = useCallback(
@@ -45,8 +63,21 @@ export default function Form(
         [customer, setCustomer]
     );
 
+    const handleInformationChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+
+            const value = e.target.value;
+            setInformation({
+                ...information,
+                content: value
+            });
+        },
+        [information, setInformation]
+    );
+
     const save = useCallback(async (e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
+
             setErrors([]);
 
             try {
@@ -162,6 +193,20 @@ export default function Form(
                         onChange={handleChange}
                     />
                 </Grid>
+                {!existingCustomer &&
+                    <Grid item xs={12}>
+                        <TextField
+                            id={"information"}
+                            name="information"
+                            label="Zusätzliche Informationen"
+                            value={information.content}
+                            fullWidth
+                            multiline
+                            variant="standard"
+                            onChange={handleInformationChange}
+                        />
+                    </Grid>
+                }
                 <Button
                     type={"submit"}
                     variant="contained"
