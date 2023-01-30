@@ -52,7 +52,7 @@ export default function Form(
             ...customer,
             information: new Array(information)
         })
-    }, [existingCustomer, information, customer])
+    }, [existingCustomer, information])
 
 
     const handleChange = useCallback(
