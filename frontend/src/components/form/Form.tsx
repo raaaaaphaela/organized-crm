@@ -4,6 +4,7 @@ import React, {FormEvent, useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {FormCustomer, Information} from "../../customer-form";
+import DeleteDialog from "../DeleteDialog";
 
 const defaultCustomer: FormCustomer = {
     "firstName": "",
@@ -59,6 +60,7 @@ export default function Form(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             const {name, value} = e.target;
             setCustomer({...customer, [name]: value});
+            console.log(customer.id)
         },
         [customer, setCustomer]
     );
@@ -214,12 +216,15 @@ export default function Form(
                 >
                     Speichern
                 </Button>
+                {existingCustomer && customer.id &&
+                    <DeleteDialog id={customer.id}/>
+                }
                 <Button
                     onClick={toHome}
                     variant="outlined"
                     sx={{mt: 3, ml: 3}}
                 >
-                    Abbrechen
+                    {existingCustomer ? "Kundenübersicht" : "Abbrechen"}
                 </Button>
             </Grid>
         </Paper>
