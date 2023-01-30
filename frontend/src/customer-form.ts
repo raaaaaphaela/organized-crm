@@ -5,6 +5,7 @@ export type Information = {
 }
 
 export type FormCustomer = {
+    id?: string,
     firstName: string,
     lastName: string,
     email: string,

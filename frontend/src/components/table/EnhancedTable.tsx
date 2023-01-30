@@ -13,6 +13,7 @@ import Switch from '@mui/material/Switch';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import {Customer} from "../../pages/HomePage";
+import {Link} from "react-router-dom";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -169,7 +170,9 @@ export default function EnhancedTable({rows}: { rows: Customer[] }) {
                                                 scope="row"
                                                 padding="normal"
                                             >
+                                                <Link to={"/edit/" + row.id}>
                                                 {row.lastName}
+                                            </Link>
                                             </TableCell>
                                             <TableCell align="left">{row.firstName}</TableCell>
                                             <TableCell align="left">{row.email}</TableCell>

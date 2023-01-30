@@ -6,6 +6,7 @@ import axios from "axios";
 import BasicTable from "../components/table/BasicTable";
 import FormDialog from "../components/form/FormDialog";
 import {FormCustomer} from "../customer-form";
+import NotFoundPage from "./NotFoundPage";
 
 export default function NewCustomerPage() {
 
@@ -19,8 +20,9 @@ export default function NewCustomerPage() {
         })();
     }, [id]);
 
-    return (
-        <>
+    return customer == undefined
+        ? <NotFoundPage/>
+        : <>
             <Container component={"main"} maxWidth="sm">
                 <Typography component={"h4"} variant={"h4"}>
                     Kunde: {customer?.firstName + " " + customer?.lastName}
@@ -33,5 +35,4 @@ export default function NewCustomerPage() {
             </Grid>
             <BasicTable information={customer?.information}/>
         </>
-    )
 }
