@@ -5,11 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -18,6 +19,15 @@ class AppUserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    private void postNewUser() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/signup")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(UserData.TEST_USER)).andExpectAll(
+                MockMvcResultMatchers.status().isOk(),
+                MockMvcResultMatchers.content().json(UserData.TEST_USER_RES)
+        );
+    }
 
     @Test
     void me_whenNotLoggedIn_shouldReturn401() throws Exception {
@@ -28,76 +38,33 @@ class AppUserControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "admin", roles = "ADMIN")
     void me_whenLoggedInAsUser_shouldReturnIsOk() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/app-users/me"))
+        postNewUser();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/app-users/me")
+                        .with(httpBasic("user", "password")))
                 .andExpectAll(
                         MockMvcResultMatchers.status().isOk()
                 );
     }
 
     @Test
-    void post_whenSuccessfulSignup_thenReturnAddedUser() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/signup")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                          {
-                            "username": "Testuser",
-                            "password": "password",
-                            "company": "TestCompany"
-                            }
-                        """)).andExpectAll(
-                MockMvcResultMatchers.status().isOk(),
-                MockMvcResultMatchers.content().json("""
-                           {
-                            "username": "Testuser",
-                            "password": "",
-                            "company": "TestCompany",
-                            "role": "BASIC"
-                            }
-                        """)
-        );
-    }
-
-    @Test
     void post_whenUsernameAlreadyTaken_thenReturnAddedUser() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/signup")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                          {
-                            "username": "Testuser",
-                            "password": "password",
-                            "company": "TestCompany"
-                            }
-                        """)).andExpectAll(
-                MockMvcResultMatchers.status().isOk(),
-                MockMvcResultMatchers.content().json("""
-                           {
-                            "username": "Testuser",
-                            "password": "",
-                            "company": "TestCompany",
-                            "role": "BASIC"
-                            }
-                        """)
-        );
+        postNewUser();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/signup")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                          {
-                            "username": "Testuser",
-                            "password": "password",
-                            "company": "TestCompany"
-                            }
-                        """)).andExpectAll(
+                .content(UserData.TEST_USER)).andExpectAll(
                 MockMvcResultMatchers.status().isConflict()
         );
     }
 
     @Test
-    @WithMockUser(username = "admin", roles = "ADMIN")
     void logout_whenLoggedInAsUser_shouldReturnIsOk() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/app-users/logout"))
+        postNewUser();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/app-users/logout")
+                .with(httpBasic("user", "password")))
                 .andExpectAll(
                         MockMvcResultMatchers.status().isOk()
                 );
