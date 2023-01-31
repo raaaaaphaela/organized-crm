@@ -6,10 +6,10 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import axios from "axios";
 import {Grid} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {Information} from "../../customer-form";
+import {deleteCustomer} from "../../api-service/customer-service";
 
 export default function FormDialog({id}: { id: string | undefined }) {
 
@@ -44,15 +44,17 @@ export default function FormDialog({id}: { id: string | undefined }) {
 
             setErrors([]);
 
-            try {
-                await axios.post("/api/customers/info/" + id, information);
-                navigate(0);
-            } catch (e) {
-                setErrors((errors) => [
-                    ...errors,
-                    "Invalid user data"
-                ]);
-                console.log(errors)
+            if (id) {
+                try {
+                    await deleteCustomer(id, information);
+                    navigate(0);
+                } catch (e) {
+                    setErrors((errors) => [
+                        ...errors,
+                        "Invalid user data"
+                    ]);
+                    console.log(errors)
+                }
             }
         },
         [id, errors, information, navigate]

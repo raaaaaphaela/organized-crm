@@ -39,10 +39,6 @@ export const tableHeads: head[] = [
         label: 'PLZ',
     },
     {
-        id: 'linkToDSGVO',
-        label: 'DSGVO',
-    },
-    {
         id: 'createdBy',
         label: 'Ersteller',
     },

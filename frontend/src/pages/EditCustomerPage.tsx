@@ -1,12 +1,12 @@
-import Form from "../components/form/Form";
 import {Container, Grid, Typography} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import axios from "axios";
 import BasicTable from "../components/table/BasicTable";
 import FormDialog from "../components/form/FormDialog";
 import {FormCustomer} from "../customer-form";
 import NotFoundPage from "./NotFoundPage";
+import EditCustomerForm from "../components/form/EditCustomerForm";
+import {getCustomer} from "../api-service/customer-service";
 
 export default function NewCustomerPage() {
 
@@ -14,20 +14,22 @@ export default function NewCustomerPage() {
     const [customer, setCustomer] = useState<FormCustomer>();
 
     useEffect(() => {
-        (async () => {
-            const response = await axios.get("/api/customers/" + id)
-            setCustomer(response.data);
-        })();
+       if(id) {
+           (async () => {
+               const response = await getCustomer(id);
+               setCustomer(response.data);
+           })();
+       }
     }, [id]);
 
-    return customer == undefined
+    return !customer
         ? <NotFoundPage/>
         : <>
             <Container component={"main"} maxWidth="sm">
                 <Typography component={"h4"} variant={"h4"}>
                     Kunde: {customer?.firstName + " " + customer?.lastName}
                 </Typography>
-                <Form existingCustomer={customer}/>
+                <EditCustomerForm existingCustomer={customer}/>
             </Container>
             <Grid display={"flex"} justifyContent={"space-between"} sx={{mt: 6}}>
                 <Typography component={"h5"} variant={"h5"} sx={{mb: 2}}>Kontaktverlauf</Typography>

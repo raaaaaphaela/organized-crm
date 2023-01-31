@@ -35,6 +35,7 @@ public class CustomerService {
 
         customer.setBelongsToCompany(currentUser.getCompany());
         customer.setCreatedBy(currentUser.getUsername());
+
         return customerRepository.save(customer);
     }
 

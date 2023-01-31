@@ -47,8 +47,7 @@ public class TestData {
                 "houseNo": 5,
                 "city": "Hamburg",
                 "information": [],
-                "postalCode": 22769,
-                "linkToDSGVO": ""
+                "postalCode": 22769
             }
             """;
 
@@ -64,7 +63,6 @@ public class TestData {
                 "city": "Hamburg",
                 "information": [],
                 "postalCode": 22769,
-                "linkToDSGVO": "",
                 "createdBy": "user",
                 "belongsToCompany": "test"
             }]
@@ -82,7 +80,6 @@ public class TestData {
                 "city": "Hamburg",
                 "information": [],
                 "postalCode": 22769,
-                "linkToDSGVO": "",
                 "createdBy": "user",
                 "belongsToCompany": "test"
             }
@@ -106,7 +103,6 @@ public class TestData {
                     }
                 ],
                 "postalCode": 22769,
-                "linkToDSGVO": "",
                 "createdBy": "user",
                 "belongsToCompany": "test"
             }

@@ -14,7 +14,6 @@ export type FormCustomer = {
     houseNo: number,
     city: string,
     postalCode: number,
-    linkToDSGVO: string,
     information: Information[],
     createdBy: string,
 }

@@ -171,8 +171,8 @@ export default function EnhancedTable({rows}: { rows: Customer[] }) {
                                                 padding="normal"
                                             >
                                                 <Link to={"/edit/" + row.id}>
-                                                {row.lastName}
-                                            </Link>
+                                                    {row.lastName}
+                                                </Link>
                                             </TableCell>
                                             <TableCell align="left">{row.firstName}</TableCell>
                                             <TableCell align="left">{row.email}</TableCell>
@@ -181,7 +181,6 @@ export default function EnhancedTable({rows}: { rows: Customer[] }) {
                                             <TableCell align="center">{row.houseNo}</TableCell>
                                             <TableCell align="left">{row.city}</TableCell>
                                             <TableCell align="left">{row.postalCode}</TableCell>
-                                            <TableCell align="left">{row.linkToDSGVO}</TableCell>
                                             <TableCell align="left">{row.createdBy}</TableCell>
                                         </TableRow>
                                     );
