@@ -5,6 +5,8 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {FormCustomer, Information} from "../../customer-form";
 import DeleteDialog from "../DeleteDialog";
+import FileUpload from "./FileUpload";
+import FormItems from "./FormItems";
 
 const defaultCustomer: FormCustomer = {
     "firstName": "",
@@ -28,6 +30,7 @@ export default function Form(
     }) {
 
     const [customer, setCustomer] = useState<FormCustomer>(defaultCustomer);
+    const [file, setFile] = useState<File>();
     const [information, setInformation] = useState<Information>(
         {
             content: "",
@@ -60,7 +63,6 @@ export default function Form(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             const {name, value} = e.target;
             setCustomer({...customer, [name]: value});
-            console.log(customer.id)
         },
         [customer, setCustomer]
     );
@@ -77,136 +79,87 @@ export default function Form(
         [information, setInformation]
     );
 
-    const save = useCallback(async (e: FormEvent<HTMLFormElement>) => {
-            e.preventDefault();
+    const save = (async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
-            setErrors([]);
+        setErrors([]);
 
-            try {
-                await axios.post("/api/customers", customer);
-            } catch (e) {
-                setErrors((errors) => [
-                    ...errors,
-                    "Invalid user data"
-                ]);
-                console.log(errors)
+        // save the customer
+        try {
+            const response = await axios.post("/api/customers", customer);
+
+            if (response.status === 200) {
+
+                const formData: any = new FormData();
+                formData.append("file", file);
+
+                // save the file
+                try {
+                    await axios({
+                        method: "post",
+                        url: "/api/files/upload",
+                        data: formData,
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                            "customerId": response.data.id
+                        },
+                    });
+                } catch (error) {
+                    console.log(error)
+                }
             }
-        },
-        [customer, errors]
-    );
+
+            console.log(response);
+
+        } catch (e) {
+            setErrors((errors) => [
+                ...errors,
+                "Invalid user data"
+            ]);
+            console.log(errors)
+        }
+    });
+
+    const downloadImage = async () => {
+        await axios.get(
+            "/api/files/download/" + customer.id,
+            {
+                responseType: "blob"
+            }).then(response => {
+            const file = new Blob(
+                [response.data], {type: 'application/pdf'});
+
+            const fileUrl = URL.createObjectURL(file);
+            window.open(fileUrl);
+        });
+    }
 
     return (
         <Paper variant={"outlined"} sx={{boxShadow: 4, my: 3, p: {xs: 2, md: 3}}}>
             <Grid container component={"form"} spacing={3} sx={{pt: 2}} onSubmit={save}>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id={"firstName"}
-                        name="firstName"
-                        label="Vorname"
-                        value={customer.firstName}
-                        fullWidth
-                        variant="standard"
-                        onChange={handleChange}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id={"lastName"}
-                        name="lastName"
-                        label="Nachname"
-                        value={customer.lastName}
-                        fullWidth
-                        variant="standard"
-                        onChange={handleChange}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id={"email"}
-                        name="email"
-                        type={"email"}
-                        label="E-Mail"
-                        value={customer.email}
-                        fullWidth
-                        variant="standard"
-                        onChange={handleChange}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id={"phone"}
-                        name="phone"
-                        label="Telefon"
-                        value={customer.phone}
-                        fullWidth
-                        variant="standard"
-                        onChange={handleChange}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                    <TextField
-                        required
-                        id={"street"}
-                        name="street"
-                        label="Straße"
-                        value={customer.street}
-                        fullWidth
-                        variant="standard"
-                        onChange={handleChange}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={2}>
-                    <TextField
-                        required
-                        id={"houseNo"}
-                        name="houseNo"
-                        label="Nr."
-                        value={customer.houseNo}
-                        fullWidth
-                        variant="standard"
-                        onChange={handleChange}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                    <TextField
-                        required
-                        id={"city"}
-                        name="city"
-                        label="Stadt"
-                        value={customer.city}
-                        fullWidth
-                        variant="standard"
-                        onChange={handleChange}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={2}>
-                    <TextField
-                        required
-                        id={"postalCode"}
-                        name="postalCode"
-                        label="PLZ"
-                        value={customer.postalCode}
-                        fullWidth
-                        variant="standard"
-                        onChange={handleChange}
-                    />
-                </Grid>
+                <FormItems customer={customer} handleChange={handleChange}/>
                 {!existingCustomer &&
+                    <>
+                        <Grid item xs={12}>
+                            <TextField
+                                id={"information"}
+                                name="information"
+                                label="Zusätzliche Informationen"
+                                value={information.content}
+                                fullWidth
+                                multiline
+                                variant="standard"
+                                onChange={handleInformationChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FileUpload setFile={setFile}/>
+                        </Grid>
+                    </>
+                }
+                {existingCustomer &&
                     <Grid item xs={12}>
-                        <TextField
-                            id={"information"}
-                            name="information"
-                            label="Zusätzliche Informationen"
-                            value={information.content}
-                            fullWidth
-                            multiline
-                            variant="standard"
-                            onChange={handleInformationChange}
-                        />
+                        <Button onClick={downloadImage}>Download DSGVO</Button>
                     </Grid>
                 }
                 <Button

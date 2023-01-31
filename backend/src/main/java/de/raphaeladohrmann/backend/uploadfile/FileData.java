@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UploadFile {
+public class FileData {
 
     private String id;
 
@@ -19,5 +19,5 @@ public class UploadFile {
 
     private byte[] file;
 
-    private String createdBy;
+    private String customerId;
 }

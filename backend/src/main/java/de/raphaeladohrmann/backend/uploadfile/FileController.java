@@ -14,21 +14,23 @@ import java.io.IOException;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/files")
-public class UploadFileController {
+public class FileController {
 
-    private final UploadFileService fileService;
+    private final FileService fileService;
 
     @PostMapping("/upload")
-    public ResponseEntity<?> upload(@RequestParam("file")MultipartFile file) throws IOException {
-        return new ResponseEntity<>(fileService.addFile(file), HttpStatus.OK);
+    public ResponseEntity<?> upload(@RequestHeader("customerId") String customerId, @RequestParam("file") MultipartFile file) throws IOException {
+        String documentId = fileService.addFile(customerId, file);
+
+        return new ResponseEntity<>(documentId, HttpStatus.OK);
     }
 
     @GetMapping("/download/{id}")
     public ResponseEntity<ByteArrayResource> download(@PathVariable String id) throws IOException {
-        UploadFile file = fileService.downloadFile(id);
+        FileData file = fileService.downloadFile(id);
 
         return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(file.getFileType() ))
+                .contentType(MediaType.parseMediaType(file.getFileType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
                 .body(new ByteArrayResource(file.getFile()));
     }
