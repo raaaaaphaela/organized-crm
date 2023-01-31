@@ -1,12 +1,12 @@
 import {Button, Grid, TextField} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import React, {FormEvent, useCallback, useEffect, useState} from "react";
-import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {FormCustomer, Information} from "../../customer-form";
-import DeleteDialog from "../DeleteDialog";
 import FileUpload from "./FileUpload";
 import FormItems from "./FormItems";
+import {downloadPDF, saveCustomer, savePDF} from "../../api-service/customer-service";
+import FormButtons from "./FormButtons";
 
 const defaultCustomer: FormCustomer = {
     "firstName": "",
@@ -86,31 +86,22 @@ export default function Form(
 
         // save the customer
         try {
-            const response = await axios.post("/api/customers", customer);
+            const response = await saveCustomer(customer);
 
             if (response.status === 200) {
+
+                // save the file
+                const customerId = response.data.id;
 
                 const formData: any = new FormData();
                 formData.append("file", file);
 
-                // save the file
                 try {
-                    await axios({
-                        method: "post",
-                        url: "/api/files/upload",
-                        data: formData,
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                            "customerId": response.data.id
-                        },
-                    });
+                    await savePDF(formData, customerId);
                 } catch (error) {
                     console.log(error)
                 }
             }
-
-            console.log(response);
-
         } catch (e) {
             setErrors((errors) => [
                 ...errors,
@@ -119,20 +110,6 @@ export default function Form(
             console.log(errors)
         }
     });
-
-    const downloadImage = async () => {
-        await axios.get(
-            "/api/files/download/" + customer.id,
-            {
-                responseType: "blob"
-            }).then(response => {
-            const file = new Blob(
-                [response.data], {type: 'application/pdf'});
-
-            const fileUrl = URL.createObjectURL(file);
-            window.open(fileUrl);
-        });
-    }
 
     return (
         <Paper variant={"outlined"} sx={{boxShadow: 4, my: 3, p: {xs: 2, md: 3}}}>
@@ -159,26 +136,14 @@ export default function Form(
                 }
                 {existingCustomer &&
                     <Grid item xs={12}>
-                        <Button onClick={downloadImage}>Download DSGVO</Button>
+                        <Button onClick={async () => {
+                            await downloadPDF(customer)
+                        }}>
+                            Download DSGVO
+                        </Button>
                     </Grid>
                 }
-                <Button
-                    type={"submit"}
-                    variant="contained"
-                    sx={{mt: 3, ml: 3}}
-                >
-                    Speichern
-                </Button>
-                {existingCustomer && customer.id &&
-                    <DeleteDialog id={customer.id}/>
-                }
-                <Button
-                    onClick={toHome}
-                    variant="outlined"
-                    sx={{mt: 3, ml: 3}}
-                >
-                    {existingCustomer ? "Kundenübersicht" : "Abbrechen"}
-                </Button>
+                <FormButtons existingCustomer={existingCustomer} customer={customer} toHome={toHome}/>
             </Grid>
         </Paper>
     )
