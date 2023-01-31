@@ -11,7 +11,6 @@ const defaultCustomer: FormCustomer = {
     "houseNo": 0,
     "city": "",
     "postalCode": 0,
-    "linkToDSGVO": "",
     "information": [],
     "createdBy": "",
 }

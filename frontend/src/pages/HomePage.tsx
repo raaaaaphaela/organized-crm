@@ -14,7 +14,6 @@ export interface Customer {
     houseNo: number,
     city: string,
     postalCode: number,
-    linkToDSGVO: string,
     createdBy: string,
 }
 

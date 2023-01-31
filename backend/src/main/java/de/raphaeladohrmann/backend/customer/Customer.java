@@ -20,7 +20,6 @@ public class Customer {
     private int houseNo;
     private String city;
     private int postalCode;
-    private String linkToDSGVO;
     private List<Information> information;
     private String createdBy;
     private String belongsToCompany;
