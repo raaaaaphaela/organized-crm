@@ -1,8 +1,8 @@
 import {Button, Grid, Typography} from "@mui/material";
 import EnhancedTable from "../components/table/EnhancedTable";
 import {useEffect, useState} from "react";
-import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {getAllCustomers} from "../api-service/customer-service";
 
 export interface Customer {
     id: string,
@@ -23,7 +23,7 @@ export default function HomePage() {
 
     useEffect(() => {
         (async () => {
-            const response = await axios.get("/api/customers")
+            const response = await getAllCustomers();
             setCustomers(response.data)
         })();
     }, []);

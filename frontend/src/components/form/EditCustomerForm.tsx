@@ -1,7 +1,7 @@
 import Paper from "@mui/material/Paper";
 import {Button, Grid} from "@mui/material";
 import FormItems from "./FormItems";
-import {downloadPDF} from "../../api-service/customer-service";
+import {downloadPDF} from "../../api-service/file-service";
 import FormButtons from "./FormButtons";
 import React from "react";
 import {FormCustomer} from "../../customer-form";

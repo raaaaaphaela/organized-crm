@@ -1,6 +1,7 @@
 import React, {FormEvent, useCallback, useEffect, useState} from "react";
 import {FormCustomer, Information} from "../customer-form";
-import {saveCustomer, savePDF} from "../api-service/customer-service";
+import {savePDF} from "../api-service/file-service";
+import {saveCustomer} from "../api-service/customer-service";
 
 const defaultCustomer: FormCustomer = {
     "firstName": "",
@@ -37,7 +38,7 @@ export default function useFormForNewCustomer() {
             ...customer,
             information: new Array(information)
         })
-    }, [information])
+    }, [information, customer])
 
     const handleChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
