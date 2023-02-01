@@ -2,6 +2,7 @@ import React, {FormEvent, useCallback, useEffect, useState} from "react";
 import {FormCustomer, Information} from "../customer-form";
 import {savePDF} from "../api-service/file-service";
 import {saveCustomer} from "../api-service/customer-service";
+import {toast} from "react-toastify";
 
 const defaultCustomer: FormCustomer = {
     "firstName": "",
@@ -83,11 +84,13 @@ export default function useFormForNewCustomer() {
                     console.log(error)
                 }
             }
+            toast.success("Erfolgreich gespeichert!")
         } catch (e) {
             setErrors((errors) => [
                 ...errors,
                 "Invalid user data"
             ]);
+            toast.error("Das hat leider nicht geklappt...")
             console.log(errors)
         }
     });

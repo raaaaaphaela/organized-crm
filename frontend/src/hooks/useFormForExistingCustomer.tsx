@@ -1,6 +1,7 @@
 import React, {FormEvent, useCallback, useState} from "react";
 import {FormCustomer} from "../customer-form";
 import {saveCustomer} from "../api-service/customer-service";
+import {toast} from "react-toastify";
 
 export default function useFormForExistingCustomer(existingCustomer: FormCustomer) {
 
@@ -23,11 +24,13 @@ export default function useFormForExistingCustomer(existingCustomer: FormCustome
         // save the customer
         try {
             await saveCustomer(customer);
+            toast.success("Erfolgreich geändert!")
         } catch (e) {
             setErrors((errors) => [
                 ...errors,
                 "Invalid user data"
             ]);
+            toast.error("Das hat leider nicht geklappt...")
             console.log(errors)
         }
     });

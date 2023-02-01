@@ -19,7 +19,7 @@ public class FileController {
     private final FileService fileService;
 
     @PostMapping("/upload")
-    public ResponseEntity<?> upload(@RequestHeader("customerId") String customerId, @RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<String> upload(@RequestHeader("customerId") String customerId, @RequestParam("file") MultipartFile file) throws IOException {
         String documentId = fileService.addFile(customerId, file);
 
         return new ResponseEntity<>(documentId, HttpStatus.OK);

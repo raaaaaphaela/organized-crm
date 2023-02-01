@@ -121,22 +121,6 @@ class CustomerControllerTest {
     }
 
     @Test
-    void delete_whenLoggedInAndCustomerExists_thenDeleteCustomer() throws Exception {
-
-        // create user
-        saveNewTestUser();
-
-        // create customer for user
-        createCustomerForUser();
-
-        // delete by id
-        mvc.perform(MockMvcRequestBuilders
-                        .delete("/api/customers/123")
-                        .with(httpBasic("user", "password")))
-                .andExpect(status().isOk());
-    }
-
-    @Test
     void delete_whenLoggedInAndCustomerDoesNotExists_thenReturn404() throws Exception {
 
         // create user

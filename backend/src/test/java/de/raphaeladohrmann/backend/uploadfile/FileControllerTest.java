@@ -116,6 +116,46 @@ class FileControllerTest {
     }
 
     @Test
+    void download_whenCustomerDeleted_thenAlsoDeleteFile() throws Exception {
+
+        // given
+        saveNewTestUser();
+        createCustomerForUser();
+
+        MockMultipartFile file = new MockMultipartFile(
+                "file",
+                "filename.txt",
+                "multipart/form-data",
+                "some xml".getBytes());
+
+        // upload file
+        mvc.perform(multipart("/api/files/upload")
+                        .file(file)
+                        .with(httpBasic("user", "password"))
+                        .header("customerId", "123")
+                )
+                .andExpect(status().isOk());
+
+        // make sure it is there
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/api/files/download/123")
+                        .with(httpBasic("user", "password")))
+                .andExpect(status().isOk());
+
+        // delete the customer
+        mvc.perform(MockMvcRequestBuilders
+                        .delete("/api/customers/123")
+                        .with(httpBasic("user", "password")))
+                .andExpect(status().isOk());
+
+        // try to get the file again, expect now 404
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/api/files/download/123")
+                        .with(httpBasic("user", "password")))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     void upload_whenCustomerHasNoFile_thenReturn_NOT_FOUND() throws Exception {
 
         // given

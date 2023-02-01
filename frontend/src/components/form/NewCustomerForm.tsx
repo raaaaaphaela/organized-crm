@@ -6,6 +6,7 @@ import FormButtons from "./FormButtons";
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import useFormForNewCustomer from "../../hooks/useFormForNewCustomer";
+import {ToastContainer} from "react-toastify";
 
 export default function NewCustomerForm() {
 
@@ -43,6 +44,7 @@ export default function NewCustomerForm() {
                 </Grid>
                 <FormButtons customer={customer} toHome={toHome}/>
             </Grid>
+            <ToastContainer position={"top-center"}/>
         </Paper>
     )
 }

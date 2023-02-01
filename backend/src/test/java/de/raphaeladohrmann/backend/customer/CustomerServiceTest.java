@@ -2,6 +2,7 @@ package de.raphaeladohrmann.backend.customer;
 
 import de.raphaeladohrmann.backend.appuser.AppUser;
 import de.raphaeladohrmann.backend.appuser.AppUserService;
+import de.raphaeladohrmann.backend.uploadfile.FileService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -19,6 +20,15 @@ import static org.mockito.Mockito.when;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class CustomerServiceTest {
 
+    private final CustomerRepository customerRepository = mock(CustomerRepository.class);
+
+    private final AppUserService appUserService = mock(AppUserService.class);
+
+    private final FileService fileService = mock(FileService.class);
+
+    private final CustomerService customerService = new CustomerService(customerRepository, appUserService, fileService);
+
+
     @Test
     void findAllCustomers_whenUserHasCustomers_returnCustomerList() {
         // given
@@ -31,12 +41,6 @@ class CustomerServiceTest {
         customer.setBelongsToCompany(user.getCompany());
 
         List<Customer> customerList = new ArrayList<>(List.of(customer));
-
-        CustomerRepository customerRepository = mock(CustomerRepository.class);
-
-        AppUserService appUserService = mock(AppUserService.class);
-
-        CustomerService customerService = new CustomerService(customerRepository, appUserService);
 
         when(appUserService.getAuthenticatedUser()).thenReturn(user);
         when(customerRepository.findAllByBelongsToCompany(user.getCompany())).thenReturn(customerList);
@@ -57,12 +61,6 @@ class CustomerServiceTest {
                 "Company", "BASIC");
 
         List<Customer> customerList = new ArrayList<>();
-
-        CustomerRepository customerRepository = mock(CustomerRepository.class);
-
-        AppUserService appUserService = mock(AppUserService.class);
-
-        CustomerService customerService = new CustomerService(customerRepository, appUserService);
 
         when(appUserService.getAuthenticatedUser()).thenReturn(user);
         when(customerRepository.findAllByBelongsToCompany(user.getCompany())).thenReturn(customerList);
@@ -85,12 +83,6 @@ class CustomerServiceTest {
         Customer customer = new Customer();
         customer.setInformation(new ArrayList<>());
 
-        CustomerRepository customerRepository = mock(CustomerRepository.class);
-
-        AppUserService appUserService = mock(AppUserService.class);
-
-        CustomerService customerService = new CustomerService(customerRepository, appUserService);
-
         when(appUserService.getAuthenticatedUser()).thenReturn(user);
         when(customerRepository.save(customer)).thenReturn(customer);
 
@@ -112,15 +104,9 @@ class CustomerServiceTest {
                 "1", "UserName", "",
                 "Company", "BASIC");
 
-        Information info = new Information("Knieschmerz","2023-01-27T22:11", "");
+        Information info = new Information("Knieschmerz", "2023-01-27T22:11", "");
         Customer customer = new Customer();
         customer.setInformation(new ArrayList<>(List.of(info)));
-
-        CustomerRepository customerRepository = mock(CustomerRepository.class);
-
-        AppUserService appUserService = mock(AppUserService.class);
-
-        CustomerService customerService = new CustomerService(customerRepository, appUserService);
 
         when(appUserService.getAuthenticatedUser()).thenReturn(user);
         when(customerRepository.save(customer)).thenReturn(customer);
@@ -144,12 +130,6 @@ class CustomerServiceTest {
         Customer customer = new Customer();
         customer.setId("123");
 
-        CustomerRepository customerRepository = mock(CustomerRepository.class);
-
-        AppUserService appUserService = mock(AppUserService.class);
-
-        CustomerService customerService = new CustomerService(customerRepository, appUserService);
-
         when(appUserService.getAuthenticatedUser()).thenReturn(user);
         when(customerRepository.findByIdAndBelongsToCompany(customer.getId(), user.getCompany())).thenReturn(Optional.of(customer));
 
@@ -171,12 +151,6 @@ class CustomerServiceTest {
 
         Customer customer = new Customer();
         customer.setId("123");
-
-        CustomerRepository customerRepository = mock(CustomerRepository.class);
-
-        AppUserService appUserService = mock(AppUserService.class);
-
-        CustomerService customerService = new CustomerService(customerRepository, appUserService);
 
         when(appUserService.getAuthenticatedUser()).thenReturn(user);
         when(customerRepository.findByIdAndBelongsToCompany(customer.getId(), user.getCompany())).thenReturn(Optional.empty());

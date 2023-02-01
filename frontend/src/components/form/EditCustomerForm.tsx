@@ -7,6 +7,7 @@ import React from "react";
 import {FormCustomer} from "../../customer-form";
 import useFormExistingCustomer from "../../hooks/useFormForExistingCustomer";
 import {useNavigate} from "react-router-dom";
+import {ToastContainer} from "react-toastify";
 
 export default function EditCustomerForm(
     {
@@ -37,6 +38,7 @@ export default function EditCustomerForm(
                     </Grid>
                 <FormButtons existingCustomer={existingCustomer} customer={customer} toHome={toHome}/>
             </Grid>
+            <ToastContainer position={"top-center"}/>
         </Paper>
     )
 }

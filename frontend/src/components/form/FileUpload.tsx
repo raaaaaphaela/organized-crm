@@ -16,5 +16,6 @@ export default function FileUpload({setFile}: { setFile: Function }) {
                 ':after': {borderBottomColor: 'none'}
             }}
             type="file"
+            required
             onChange={handleFileChange}/>)
 }

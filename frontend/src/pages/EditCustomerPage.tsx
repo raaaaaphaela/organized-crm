@@ -12,19 +12,28 @@ export default function NewCustomerPage() {
 
     const {id} = useParams<{ id: string }>();
     const [customer, setCustomer] = useState<FormCustomer>();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
-       if(id) {
-           (async () => {
-               const response = await getCustomer(id);
-               setCustomer(response.data);
-           })();
-       }
+        if (id) {
+            (async () => {
+                const response = await getCustomer(id);
+                setCustomer(response.data);
+                setIsLoading(false);
+            })();
+        }
     }, [id]);
 
-    return !customer
-        ? <NotFoundPage/>
-        : <>
+    if (isLoading) {
+        return null;
+    }
+
+    if (!customer) {
+        return <NotFoundPage/>
+    }
+
+    return (
+        <>
             <Container component={"main"} maxWidth="sm">
                 <Typography component={"h4"} variant={"h4"}>
                     Kunde: {customer?.firstName + " " + customer?.lastName}
@@ -37,4 +46,5 @@ export default function NewCustomerPage() {
             </Grid>
             <BasicTable information={customer?.information}/>
         </>
+    )
 }
