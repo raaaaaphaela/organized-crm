@@ -12,17 +12,21 @@ export default function NewCustomerPage() {
 
     const {id} = useParams<{ id: string }>();
     const [customer, setCustomer] = useState<FormCustomer>();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
        if(id) {
            (async () => {
                const response = await getCustomer(id);
                setCustomer(response.data);
+               setIsLoading(false);
            })();
        }
     }, [id]);
 
-    return !customer
+    return isLoading
+        ? null
+        : !customer
         ? <NotFoundPage/>
         : <>
             <Container component={"main"} maxWidth="sm">
