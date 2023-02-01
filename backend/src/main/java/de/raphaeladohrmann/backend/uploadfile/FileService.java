@@ -88,4 +88,9 @@ public class FileService {
                                 Criteria.where("metadata.customerId").is(id)))
         ).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "File not found"));
     }
+
+    public void deleteFileFromCustomer(String id) {
+        template.delete(Query.query(
+                Criteria.where("metadata.customerId").is(id)));
+    }
 }

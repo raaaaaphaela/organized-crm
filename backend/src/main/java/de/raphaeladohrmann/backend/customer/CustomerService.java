@@ -1,7 +1,9 @@
 package de.raphaeladohrmann.backend.customer;
 
+import com.mongodb.client.gridfs.model.GridFSFile;
 import de.raphaeladohrmann.backend.appuser.AppUser;
 import de.raphaeladohrmann.backend.appuser.AppUserService;
+import de.raphaeladohrmann.backend.uploadfile.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final AppUserService appUserService;
+
+    private final FileService fileService;
 
     public List<Customer> findAllCustomers() {
         return customerRepository.findAllByBelongsToCompany(appUserService.getAuthenticatedUser().getCompany());
@@ -44,6 +48,13 @@ public class CustomerService {
         if (customer.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+
+        GridFSFile file = fileService.getFileByCustomerId(customer.get().getId());
+
+        if (file != null) {
+            fileService.deleteFileFromCustomer(customer.get().getId());
+        }
+
         customer.ifPresent(value -> customerRepository.deleteById(value.getId()));
     }
 
