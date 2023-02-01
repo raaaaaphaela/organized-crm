@@ -1,5 +1,6 @@
 package de.raphaeladohrmann.backend.customer;
 
+import de.raphaeladohrmann.backend.TestData;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,7 +25,7 @@ class CustomerControllerTest {
         mvc.perform(MockMvcRequestBuilders
                         .post("/api/app-users/signup")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(TestData.NEW_USER)).andExpect(status().isOk())
+                        .content(de.raphaeladohrmann.backend.TestData.NEW_USER)).andExpect(status().isOk())
                 .andExpect(content().json(TestData.NEW_USER_RESPONSE));
     }
 
