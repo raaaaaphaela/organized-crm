@@ -1,8 +1,8 @@
-package de.raphaeladohrmann.backend.customer;
+package de.raphaeladohrmann.backend;
 
 public class TestData {
 
-    final static String NEW_USER = """
+    public final static String NEW_USER = """
             {
                 "username":"user",
                 "password":"password",
@@ -10,7 +10,7 @@ public class TestData {
             }
             """;
 
-    final static String NEW_USER_2 = """
+    public final static String NEW_USER_2 = """
             {
                 "username":"user2",
                 "password":"password",
@@ -18,7 +18,7 @@ public class TestData {
             }
             """;
 
-    final static String NEW_USER_RESPONSE = """
+    public final static String NEW_USER_RESPONSE = """
             {
                 "username": "user",
                 "password": "",
@@ -27,7 +27,7 @@ public class TestData {
             }
             """;
 
-    final static String NEW_USER_2_RESPONSE = """
+    public final static String NEW_USER_2_RESPONSE = """
             {
                 "username": "user2",
                 "password": "",
@@ -36,7 +36,7 @@ public class TestData {
             }
             """;
 
-    final static String NEW_CUSTOMER = """
+    public final static String NEW_CUSTOMER = """
             {
                 "id": "123",
                 "firstName": "Max",
@@ -51,7 +51,7 @@ public class TestData {
             }
             """;
 
-    final static String CUSTOMER_LIST = """
+    public final static String CUSTOMER_LIST = """
             [{
                 "id": "123",
                 "firstName": "Max",
@@ -68,7 +68,7 @@ public class TestData {
             }]
             """;
 
-    final static String SINGLE_CUSTOMER = """
+    public final static String SINGLE_CUSTOMER = """
             {
                 "id": "123",
                 "firstName": "Max",
@@ -85,7 +85,7 @@ public class TestData {
             }
             """;
 
-    final static String SINGLE_CUSTOMER_WITH_INFO = """
+    public final static String SINGLE_CUSTOMER_WITH_INFO = """
             {
                 "id": "123",
                 "firstName": "Max",
@@ -108,7 +108,7 @@ public class TestData {
             }
             """;
 
-    final static String CUSTOMER_INFO_POST = """
+    public final static String CUSTOMER_INFO_POST = """
               {
                  "content": "Knieschmerz...",
                  "dateTime": "1995-06-11T11:11"

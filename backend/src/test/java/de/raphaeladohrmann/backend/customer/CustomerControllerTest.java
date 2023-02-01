@@ -1,5 +1,6 @@
 package de.raphaeladohrmann.backend.customer;
 
+import de.raphaeladohrmann.backend.TestData;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

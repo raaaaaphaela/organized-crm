@@ -1,5 +1,6 @@
 package de.raphaeladohrmann.backend.appuser;
 
+import de.raphaeladohrmann.backend.TestData;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,9 +24,9 @@ class AppUserControllerTest {
     private void postNewUser() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/signup")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(UserData.TEST_USER)).andExpectAll(
+                .content(TestData.NEW_USER)).andExpectAll(
                 MockMvcResultMatchers.status().isOk(),
-                MockMvcResultMatchers.content().json(UserData.TEST_USER_RES)
+                MockMvcResultMatchers.content().json(TestData.NEW_USER_RESPONSE)
         );
     }
 
@@ -54,7 +55,7 @@ class AppUserControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/signup")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(UserData.TEST_USER)).andExpectAll(
+                .content(TestData.NEW_USER)).andExpectAll(
                 MockMvcResultMatchers.status().isConflict()
         );
     }
@@ -64,7 +65,7 @@ class AppUserControllerTest {
         postNewUser();
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/app-users/logout")
-                .with(httpBasic("user", "password")))
+                        .with(httpBasic("user", "password")))
                 .andExpectAll(
                         MockMvcResultMatchers.status().isOk()
                 );
