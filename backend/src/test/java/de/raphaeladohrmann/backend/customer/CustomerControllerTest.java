@@ -25,7 +25,7 @@ class CustomerControllerTest {
         mvc.perform(MockMvcRequestBuilders
                         .post("/api/app-users/signup")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(de.raphaeladohrmann.backend.TestData.NEW_USER)).andExpect(status().isOk())
+                        .content(TestData.NEW_USER)).andExpect(status().isOk())
                 .andExpect(content().json(TestData.NEW_USER_RESPONSE));
     }
 
