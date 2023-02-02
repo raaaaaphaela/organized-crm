@@ -1,8 +1,8 @@
 import {Container, Grid, Typography} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import BasicTable from "../components/table/BasicTable";
-import FormDialog from "../components/form/FormDialog";
+import InformationTable from "../components/table/InformationTable";
+import InformationForm from "../components/form/InformationForm";
 import {FormCustomer} from "../customer-form";
 import NotFoundPage from "./NotFoundPage";
 import EditCustomerForm from "../components/form/EditCustomerForm";
@@ -42,9 +42,9 @@ export default function NewCustomerPage() {
             </Container>
             <Grid display={"flex"} justifyContent={"space-between"} sx={{mt: 6}}>
                 <Typography component={"h5"} variant={"h5"} sx={{mb: 2}}>Kontaktverlauf</Typography>
-                <FormDialog id={id}/>
+                <InformationForm id={id}/>
             </Grid>
-            <BasicTable information={customer?.information}/>
+            <InformationTable information={customer?.information}/>
         </>
     )
 }

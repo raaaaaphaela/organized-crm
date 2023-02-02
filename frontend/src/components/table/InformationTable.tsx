@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Information} from "../../customer-form";
 
-export default function BasicTable({information}: { information?: Information[]}) {
+export default function InformationTable({information}: { information?: Information[]}) {
     return (
         <TableContainer component={Paper} sx={{ boxShadow: 4, mt: 1, mb: 3}}>
             <Table aria-label="simple table">

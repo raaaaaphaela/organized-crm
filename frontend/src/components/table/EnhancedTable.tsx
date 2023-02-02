@@ -163,6 +163,23 @@ export default function EnhancedTable() {
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - customers.length) : 0;
 
+    const formatBirthday = (birthday: string) => {
+
+        if(!birthday) {
+            return "";
+        }
+
+        const date = new Date(birthday);
+
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+
+        const formattedDate = `${day}.${month}.${year}`;
+
+        return formattedDate.toString();
+    }
+
     return (
         <Box sx={{width: '100%'}}>
             <Paper sx={{width: '100%', mb: 2}}>
@@ -188,18 +205,18 @@ export default function EnhancedTable() {
                         <TableBody>
                             {stableSort(customers, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row, index) => {
-                                    const isItemSelected = isSelected(row.id);
+                                .map((customer, index) => {
+                                    const isItemSelected = isSelected(customer.id);
                                     const labelId = `enhanced-table-checkbox-${index}`;
 
                                     return (
                                         <TableRow
                                             hover
-                                            onClick={(event) => handleClick(event, row.id)}
+                                            onClick={(event) => handleClick(event, customer.id)}
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
-                                            key={row.id}
+                                            key={customer.id}
                                             selected={isItemSelected}
                                         >
                                             <TableCell padding="checkbox">
@@ -217,26 +234,27 @@ export default function EnhancedTable() {
                                                 scope="row"
                                                 padding="normal"
                                             >
-                                                <Link to={"/edit/" + row.id}>
-                                                    {row.lastName}
+                                                <Link to={"/edit/" + customer.id}>
+                                                    {customer.lastName}
                                                 </Link>
                                             </TableCell>
-                                            <TableCell align="left">{row.firstName}</TableCell>
+                                            <TableCell align="left">{customer.firstName}</TableCell>
                                             <TableCell align="left">
-                                                <a href={`mailto:${row.email}`}>
-                                                    {row.email}
+                                                <a href={`mailto:${customer.email}`}>
+                                                    {customer.email}
                                                 </a>
                                             </TableCell>
+                                            <TableCell align="left">{formatBirthday(customer.birthday)}</TableCell>
                                             <TableCell align="left">
-                                                <a href={`tel:${row.phone}`}>
-                                                    {row.phone}
+                                                <a href={`tel:${customer.phone}`}>
+                                                    {customer.phone}
                                                 </a>
                                             </TableCell>
-                                            <TableCell align="left">{row.street}</TableCell>
-                                            <TableCell align="center">{row.houseNo}</TableCell>
-                                            <TableCell align="left">{row.city}</TableCell>
-                                            <TableCell align="left">{row.postalCode}</TableCell>
-                                            <TableCell align="left">{row.createdBy}</TableCell>
+                                            <TableCell align="left">{customer.street}</TableCell>
+                                            <TableCell align="center">{customer.houseNo}</TableCell>
+                                            <TableCell align="left">{customer.city}</TableCell>
+                                            <TableCell align="left">{customer.postalCode}</TableCell>
+                                            <TableCell align="left">{customer.createdBy}</TableCell>
                                         </TableRow>
                                     );
                                 })}

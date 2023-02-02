@@ -11,7 +11,7 @@ import {useNavigate} from "react-router-dom";
 import {Information} from "../../customer-form";
 import {saveInformation} from "../../api-service/customer-service";
 
-export default function FormDialog({id}: { id: string | undefined }) {
+export default function InformationForm({id}: { id: string | undefined }) {
 
     const [open, setOpen] = useState(false);
     const [errors, setErrors] = useState<string[]>([]);

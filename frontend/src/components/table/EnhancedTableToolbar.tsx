@@ -4,11 +4,10 @@ import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import * as React from "react";
+import {ChangeEventHandler} from "react";
 import {deleteCustomer} from "../../api-service/customer-service";
 import {TextField} from "@mui/material";
-import {ChangeEventHandler} from "react";
 
 interface EnhancedTableToolbarProps {
     numSelected: number,
@@ -55,7 +54,6 @@ export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
                     {numSelected} selected
                 </Typography>
             ) : (
-                <>
                     <Typography
                         sx={{flex: '1 1 100%'}}
                         variant="h6"
@@ -64,13 +62,6 @@ export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
                     >
                         Kundenübersicht
                     </Typography>
-                    <TextField
-                        id="outlined-basic"
-                        label="Suchen"
-                        variant="outlined"
-                        sx={{mr: 3}}
-                        onChange={handleInput}/>
-                </>
             )}
             {numSelected > 0 ? (
                 <Tooltip title="Delete">
@@ -79,11 +70,12 @@ export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
                     </IconButton>
                 </Tooltip>
             ) : (
-                <Tooltip title="Filter list">
-                    <IconButton>
-                        <FilterListIcon/>
-                    </IconButton>
-                </Tooltip>
+                <TextField
+                    id="outlined-basic"
+                    label="Suchen"
+                    variant="outlined"
+                    sx={{mr: 3}}
+                    onChange={handleInput}/>
             )}
         </Toolbar>
     );
