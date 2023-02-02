@@ -7,14 +7,21 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import * as React from "react";
 import {deleteCustomer} from "../../api-service/customer-service";
+import {TextField} from "@mui/material";
+import {ChangeEventHandler} from "react";
 
 interface EnhancedTableToolbarProps {
     numSelected: number,
-    selected: readonly string[]
+    selected: readonly string[],
+    handleInput: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
 }
 
 export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-    const {numSelected, selected} = props;
+    const {
+        numSelected,
+        selected,
+        handleInput
+    } = props;
 
     const handleDelete = () => {
         selected.forEach(customerId => {
@@ -30,6 +37,7 @@ export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         <Toolbar
             sx={{
                 pl: {sm: 2},
+                pt: 2,
                 pr: {xs: 1, sm: 1},
                 ...(numSelected > 0 && {
                     bgcolor: (theme) =>
@@ -47,14 +55,22 @@ export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
                     {numSelected} selected
                 </Typography>
             ) : (
-                <Typography
-                    sx={{flex: '1 1 100%'}}
-                    variant="h6"
-                    id="tableTitle"
-                    component="div"
-                >
-                    Kundenübersicht
-                </Typography>
+                <>
+                    <Typography
+                        sx={{flex: '1 1 100%'}}
+                        variant="h6"
+                        id="tableTitle"
+                        component="div"
+                    >
+                        Kundenübersicht
+                    </Typography>
+                    <TextField
+                        id="outlined-basic"
+                        label="Suchen"
+                        variant="outlined"
+                        sx={{mr: 3}}
+                        onChange={handleInput}/>
+                </>
             )}
             {numSelected > 0 ? (
                 <Tooltip title="Delete">

@@ -14,6 +14,8 @@ import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import {Customer} from "../../pages/HomePage";
 import {Link} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {getAllCustomers} from "../../api-service/customer-service";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -55,13 +57,54 @@ function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) 
     return stabilizedThis.map((el) => el[0]);
 }
 
-export default function EnhancedTable({rows}: { rows: Customer[] }) {
+export default function EnhancedTable() {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Customer>('lastName');
     const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [searchValue, setSearchValue] = useState<string>("");
+    const [customers, setCustomers] = useState<Customer[]>([]);
+    const [allCustomers, setAllCustomers] = useState<Customer[]>([]);
+
+    useEffect(() => {
+        (async () => {
+            const response = await getAllCustomers();
+            setAllCustomers(response.data)
+            setCustomers(response.data);
+        })();
+    }, []);
+
+    useEffect(() => {
+        if (!searchValue) {
+            setCustomers(allCustomers);
+        }
+    }, [searchValue]);
+
+    const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const searchValue = e.target.value;
+        setSearchValue(searchValue);
+
+        if (!searchValue) {
+            return;
+        }
+
+        const filtered = filterCustomers(searchValue, customers);
+
+        setCustomers(filtered);
+    }
+
+    function filterCustomers(searchValue: string, customers: Customer[]) {
+        return customers.filter(customer => {
+            return Object.values(customer).some(value => {
+                return (
+                    (typeof value === "string" && value.toLowerCase().includes(searchValue.toLowerCase())) ||
+                    (typeof value === "number" && value.toString().includes(searchValue))
+                );
+            });
+        });
+    }
 
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
@@ -74,7 +117,7 @@ export default function EnhancedTable({rows}: { rows: Customer[] }) {
 
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
-            const newSelected = rows.map((n) => n.id);
+            const newSelected = customers.map((n) => n.id);
             setSelected(newSelected);
             return;
         }
@@ -118,12 +161,16 @@ export default function EnhancedTable({rows}: { rows: Customer[] }) {
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - customers.length) : 0;
 
     return (
         <Box sx={{width: '100%'}}>
             <Paper sx={{width: '100%', mb: 2}}>
-                <EnhancedTableToolbar numSelected={selected.length} selected={selected}/>
+                <EnhancedTableToolbar
+                    numSelected={selected.length}
+                    selected={selected}
+                    handleInput={handleInput}
+                />
                 <TableContainer>
                     <Table
                         sx={{minWidth: 750}}
@@ -136,10 +183,10 @@ export default function EnhancedTable({rows}: { rows: Customer[] }) {
                             orderBy={orderBy}
                             onSelectAllClick={handleSelectAllClick}
                             onRequestSort={handleRequestSort}
-                            rowCount={rows.length}
+                            rowCount={customers.length}
                         />
                         <TableBody>
-                            {stableSort(rows, getComparator(order, orderBy))
+                            {stableSort(customers, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
                                     const isItemSelected = isSelected(row.id);
@@ -208,7 +255,7 @@ export default function EnhancedTable({rows}: { rows: Customer[] }) {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={rows.length}
+                    count={customers.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
