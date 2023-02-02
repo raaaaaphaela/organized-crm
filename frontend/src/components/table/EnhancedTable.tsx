@@ -123,7 +123,7 @@ export default function EnhancedTable({rows}: { rows: Customer[] }) {
     return (
         <Box sx={{width: '100%'}}>
             <Paper sx={{width: '100%', mb: 2}}>
-                <EnhancedTableToolbar numSelected={selected.length}/>
+                <EnhancedTableToolbar numSelected={selected.length} selected={selected}/>
                 <TableContainer>
                     <Table
                         sx={{minWidth: 750}}
@@ -175,8 +175,16 @@ export default function EnhancedTable({rows}: { rows: Customer[] }) {
                                                 </Link>
                                             </TableCell>
                                             <TableCell align="left">{row.firstName}</TableCell>
-                                            <TableCell align="left">{row.email}</TableCell>
-                                            <TableCell align="left">{row.phone}</TableCell>
+                                            <TableCell align="left">
+                                                <a href={`mailto:${row.email}`}>
+                                                    {row.email}
+                                                </a>
+                                            </TableCell>
+                                            <TableCell align="left">
+                                                <a href={`tel:${row.phone}`}>
+                                                    {row.phone}
+                                                </a>
+                                            </TableCell>
                                             <TableCell align="left">{row.street}</TableCell>
                                             <TableCell align="center">{row.houseNo}</TableCell>
                                             <TableCell align="left">{row.city}</TableCell>

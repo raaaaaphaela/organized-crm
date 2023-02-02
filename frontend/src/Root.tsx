@@ -28,10 +28,10 @@ export default function Root() {
         palette: {
             mode: 'light',
             primary: {
-                main: '#305252'
+                main: '#062375'
             },
             secondary: {
-                main: '#B7D5D4'
+                main: '#0e43c9'
             }
         }
     });

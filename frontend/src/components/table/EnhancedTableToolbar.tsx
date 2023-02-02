@@ -6,13 +6,25 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import * as React from "react";
+import {deleteCustomer} from "../../api-service/customer-service";
 
 interface EnhancedTableToolbarProps {
-    numSelected: number;
+    numSelected: number,
+    selected: readonly string[]
 }
 
 export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-    const {numSelected} = props;
+    const {numSelected, selected} = props;
+
+    const handleDelete = () => {
+        selected.forEach(customerId => {
+            deleteCustomer(customerId)
+                .then(r => console.log(r.status))
+                .then(() => {
+                    window.location.reload();
+                });
+        });
+    }
 
     return (
         <Toolbar
@@ -46,7 +58,7 @@ export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
             )}
             {numSelected > 0 ? (
                 <Tooltip title="Delete">
-                    <IconButton>
+                    <IconButton onClick={handleDelete}>
                         <DeleteIcon/>
                     </IconButton>
                 </Tooltip>

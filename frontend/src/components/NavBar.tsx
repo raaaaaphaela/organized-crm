@@ -12,10 +12,10 @@ export default function NavBar() {
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
                 <Toolbar sx={{mx: 2}}>
-                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                    <Typography variant="h6" component="div" sx={{flexGrow: 1, color: "white"}}>
                         LOGO
                     </Typography>
-                    <Button color="secondary" onClick={home} sx={{mr: 3}}>
+                    <Button color="secondary" onClick={home} sx={{mr: 3, color: "white"}}>
                         Startseite
                     </Button>
                     <LogoutButton />

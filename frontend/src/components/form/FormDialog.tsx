@@ -9,7 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import {Grid} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {Information} from "../../customer-form";
-import {deleteCustomer} from "../../api-service/customer-service";
+import {saveInformation} from "../../api-service/customer-service";
 
 export default function FormDialog({id}: { id: string | undefined }) {
 
@@ -46,7 +46,7 @@ export default function FormDialog({id}: { id: string | undefined }) {
 
             if (id) {
                 try {
-                    await deleteCustomer(id, information);
+                    await saveInformation(id, information);
                     navigate(0);
                 } catch (e) {
                     setErrors((errors) => [
