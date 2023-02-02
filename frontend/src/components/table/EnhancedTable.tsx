@@ -80,7 +80,7 @@ export default function EnhancedTable() {
         if (!searchValue) {
             setCustomers(allCustomers);
         }
-    }, [searchValue]);
+    }, [searchValue, allCustomers]);
 
     const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchValue = e.target.value;
