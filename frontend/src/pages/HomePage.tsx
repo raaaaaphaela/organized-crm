@@ -1,8 +1,7 @@
 import {Button, Grid, Typography} from "@mui/material";
 import EnhancedTable from "../components/table/EnhancedTable";
-import {useEffect, useState} from "react";
+import React from "react";
 import {useNavigate} from "react-router-dom";
-import {getAllCustomers} from "../api-service/customer-service";
 
 export interface Customer {
     id: string,
@@ -19,15 +18,6 @@ export interface Customer {
 
 export default function HomePage() {
 
-    const [customers, setCustomers] = useState<Customer[]>([]);
-
-    useEffect(() => {
-        (async () => {
-            const response = await getAllCustomers();
-            setCustomers(response.data)
-        })();
-    }, []);
-
     const navigate = useNavigate();
     const newCustomer = () => navigate("/new", {replace: true});
 
@@ -42,7 +32,7 @@ export default function HomePage() {
                 KUNDENÜBERSICHT
             </Typography>
             <Button sx={{my: 4}} variant="contained" onClick={newCustomer}>Neuer Kunde</Button>
-            <EnhancedTable rows={customers}/>
+            <EnhancedTable/>
         </Grid>
     )
 }

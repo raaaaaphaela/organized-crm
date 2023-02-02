@@ -99,6 +99,23 @@ class CustomerControllerTest {
     }
 
     @Test
+    void update_whenLoggedInAndExistingCustomer_Return200AndUpdatedCustomer() throws Exception {
+
+        // create user
+        saveNewTestUser();
+
+        // create customer for user
+        createCustomerForUser();
+
+        mvc.perform(MockMvcRequestBuilders
+                        .put("/api/customers")
+                        .with(httpBasic("user", "password"))
+                        .contentType(MediaType.APPLICATION_JSON).content(TestData.UPDATED_CUSTOMER))
+                .andExpect(status().isOk())
+                .andExpect(content().json(TestData.UPDATED_CUSTOMER));
+    }
+
+    @Test
     void findById_whenFalseUserForCompany_ReturnNull() throws Exception {
 
         // create user

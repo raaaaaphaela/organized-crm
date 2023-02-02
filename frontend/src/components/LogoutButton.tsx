@@ -16,6 +16,6 @@ export default function LogoutButton() {
     }, [location, navigate]);
 
     return (
-        <Button variant="outlined" color="secondary" onClick={logout}>Logout</Button>
+        <Button variant="outlined" color="secondary" sx={{color: "white", borderColor: "white"}} onClick={logout}>Logout</Button>
     )
 }

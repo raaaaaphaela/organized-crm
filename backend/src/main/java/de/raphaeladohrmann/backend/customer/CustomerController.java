@@ -28,6 +28,11 @@ public class CustomerController {
         return customerService.save(customer);
     }
 
+    @PutMapping
+    public Customer update(@RequestBody Customer customer) {
+        return customerService.save(customer);
+    }
+
     @PostMapping("/info/{customerId}")
     public Customer saveInformation(@PathVariable String customerId, @RequestBody Information information) {
         return customerService.saveInformation(customerId, information);
