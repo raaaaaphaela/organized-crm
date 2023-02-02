@@ -5,6 +5,10 @@ export async function saveCustomer(customer: FormCustomer) {
     return await axios.post("/api/customers", customer);
 }
 
+export async function updateCustomer(customer: FormCustomer) {
+    return await axios.put("/api/customers", customer);
+}
+
 export async function deleteCustomer (id: string) {
     return await axios.delete("/api/customers/" + id);
 }

@@ -51,6 +51,21 @@ public class TestData {
             }
             """;
 
+    public final static String UPDATED_CUSTOMER = """
+            {
+                "id": "123",
+                "firstName": "Maximilian",
+                "lastName": "Mustermann",
+                "email": "maxi.must@test.de",
+                "phone": "+49017327482223",
+                "street": "Mondstr.",
+                "houseNo": 5,
+                "city": "Hamburg",
+                "information": [],
+                "postalCode": 22769
+            }
+            """;
+
     public final static String CUSTOMER_LIST = """
             [{
                 "id": "123",

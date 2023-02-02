@@ -12,7 +12,6 @@ export default function useAuth() {
             try {
                 const user = await axios.get("/api/app-users/me");
                 setUser(user.data);
-                console.log("User: ", user)
             } catch (e) {
                 console.log("Not logged in ...", e);
             } finally {
