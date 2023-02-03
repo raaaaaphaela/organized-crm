@@ -14,15 +14,17 @@ export default function InformationTable({information}: { information?: Informat
 
     useEffect(() => {
         if(information) {
-            const sorted = information.sort((a, b) => {
-                let dateA = new Date(a.dateTime);
-                let dateB = new Date(b.dateTime);
-                return (dateB.getDate() && dateB.getTime()) - (dateA.getDate() && dateA.getTime());
-            })
-
-            setSortedInformation(sorted);
+            setSortedInformation(sortInformation(information));
         }
     }, [sortedInformation, information] )
+
+    const sortInformation = (information: Information[]) => {
+        return information.sort((a, b) => {
+            let dateA = new Date(a.dateTime);
+            let dateB = new Date(b.dateTime);
+            return dateB.getTime() - dateA.getTime();
+        });
+    };
 
     const formatDateTime = (dateTime: string) => {
         if(!dateTime) {
