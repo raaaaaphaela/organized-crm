@@ -7,17 +7,21 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Information} from "../../customer-form";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 export default function InformationTable({information}: { information?: Information[]}) {
+    const [sortedInformation, setSortedInformation] = useState<Information[]>([]);
 
     useEffect(() => {
-        information && information.sort((a, b) => {
-            let dateA = new Date(a.dateTime);
-            let dateB = new Date(b.dateTime);
-            return dateB.getDate() - dateA.getDate();
-        })
-    }, [information])
+        if(information) {
+            const sorted = information.sort((a, b) => {
+                let dateA = new Date(a.dateTime);
+                let dateB = new Date(b.dateTime);
+                return dateB.getDate() - dateA.getDate();
+            })
+            setSortedInformation(sorted);
+        }
+    }, [sortedInformation, information] )
 
     return (
         <TableContainer component={Paper} sx={{ boxShadow: 4, mt: 1, mb: 3}}>
@@ -30,7 +34,7 @@ export default function InformationTable({information}: { information?: Informat
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {information && information.map((row) => (
+                    {sortedInformation && sortedInformation.map((row) => (
                         <TableRow
                             key={row.dateTime + row.content}
                             sx={{'&:last-child td, &:last-child th': {border: 0}}}
