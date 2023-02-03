@@ -19,6 +19,10 @@ export const tableHeads: head[] = [
         label: 'E-Mail',
     },
     {
+        id: 'birthday',
+        label: 'Geburtstag',
+    },
+    {
         id: 'phone',
         label: 'Telefon',
     },

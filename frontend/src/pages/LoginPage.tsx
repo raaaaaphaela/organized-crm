@@ -1,32 +1,17 @@
-import React, {FormEvent, useCallback, useMemo, useState} from "react";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import React, {FormEvent, useCallback} from "react";
 import axios from "axios";
-import {Box, Button, TextField, Typography} from "@mui/material";
-import Avatar from '@mui/material/Avatar';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import AuthForm from "../components/form/AuthForm";
+import useAuthUser from "../hooks/useAuthUser";
 
 export default function LoginPage() {
 
-    const [credentials, setCredentials] = useState({
-        username: "",
-        password: ""
-    });
+   const {
+       redirect,
+       credentials,
+       navigate,
+       handleChange
+   } = useAuthUser();
 
-    const handleChange = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            const {name, value} = e.target;
-            setCredentials({...credentials, [name]: value});
-        },
-        [credentials, setCredentials]
-    );
-
-    const [searchParams] = useSearchParams();
-    const redirect = useMemo(() =>
-            searchParams.get("redirect") || "/",
-        [searchParams]
-    );
-
-    const navigate = useNavigate();
     const login = useCallback(
         async (e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
@@ -41,57 +26,11 @@ export default function LoginPage() {
     );
 
     return (
-        <Box
-            sx={{
-                marginTop: 8,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}
-        >
-            <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-                <LockOutlinedIcon/>
-            </Avatar>
-            <Typography component="h1">Login</Typography>
-            <Box component="form"
-                 onSubmit={login}
-                 sx={{
-                     mt: 1,
-                     width: 300,
-                 }}>
-                <TextField
-                    margin="dense"
-                    required
-                    fullWidth
-                    id="username"
-                    label="Username"
-                    name="username"
-                    value={credentials.username}
-                    autoComplete="username"
-                    autoFocus
-                    onChange={handleChange}
-                />
-                <TextField
-                    margin="dense"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    value={credentials.password}
-                    autoComplete="current-password"
-                    onChange={handleChange}
-                />
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{mt: 2, mb: 2}}
-                >
-                    Einloggen
-                </Button>
-            </Box>
-        </Box>
+        <AuthForm
+            handleChange={handleChange}
+            credentials={credentials}
+            onSubmit={login}
+            buttonText={"Einloggen"}
+        />
     )
 }

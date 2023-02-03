@@ -49,7 +49,7 @@ export default function FormItems (
                     onChange={handleChange}
                 />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={4}>
                 <TextField
                     required
                     id={"phone"}
@@ -60,6 +60,22 @@ export default function FormItems (
                     variant="standard"
                     onChange={handleChange}
                 />
+            </Grid>
+            <Grid item xs={12}>
+                <TextField
+                    id="date"
+                    label="Geburtstag"
+                    type="date"
+                    name="birthday"
+                    required
+                    value={customer.birthday}
+                    sx={{width: 250, mt: 2}}
+                    InputLabelProps={{
+                        shrink: true
+                    }}
+                    onChange={handleChange}
+                />
+
             </Grid>
             <Grid item xs={12} sm={4}>
                 <TextField
@@ -85,18 +101,6 @@ export default function FormItems (
                     onChange={handleChange}
                 />
             </Grid>
-            <Grid item xs={12} sm={4}>
-                <TextField
-                    required
-                    id={"city"}
-                    name="city"
-                    label="Stadt"
-                    value={customer.city}
-                    fullWidth
-                    variant="standard"
-                    onChange={handleChange}
-                />
-            </Grid>
             <Grid item xs={12} sm={2}>
                 <TextField
                     required
@@ -104,6 +108,18 @@ export default function FormItems (
                     name="postalCode"
                     label="PLZ"
                     value={customer.postalCode}
+                    fullWidth
+                    variant="standard"
+                    onChange={handleChange}
+                />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+                <TextField
+                    required
+                    id={"city"}
+                    name="city"
+                    label="Stadt"
+                    value={customer.city}
                     fullWidth
                     variant="standard"
                     onChange={handleChange}
