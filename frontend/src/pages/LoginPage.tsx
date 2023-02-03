@@ -5,12 +5,12 @@ import useAuthUser from "../hooks/useAuthUser";
 
 export default function LoginPage() {
 
-   const {
-       redirect,
-       credentials,
-       navigate,
-       handleChange
-   } = useAuthUser();
+    const {
+        redirect,
+        credentials,
+        navigate,
+        handleChange
+    } = useAuthUser();
 
     const login = useCallback(
         async (e: FormEvent<HTMLFormElement>) => {

@@ -98,6 +98,7 @@ export default function useFormForNewCustomer() {
 
     return {
         customer,
+        setCustomer,
         information,
         handleChange,
         handleInformationChange,
