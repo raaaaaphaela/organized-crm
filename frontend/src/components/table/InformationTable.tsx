@@ -17,11 +17,30 @@ export default function InformationTable({information}: { information?: Informat
             const sorted = information.sort((a, b) => {
                 let dateA = new Date(a.dateTime);
                 let dateB = new Date(b.dateTime);
-                return dateB.getDate() - dateA.getDate();
+                return (dateB.getDate() && dateB.getTime()) - (dateA.getDate() && dateA.getTime());
             })
+
             setSortedInformation(sorted);
         }
     }, [sortedInformation, information] )
+
+    const formatDateTime = (dateTime: string) => {
+        if(!dateTime) {
+            return "";
+        }
+
+        const date = new Date(dateTime);
+        let formattedDate = date.toLocaleString('de-DE', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        });
+
+        return formattedDate.toString();
+    }
 
     return (
         <TableContainer component={Paper} sx={{ boxShadow: 4, mt: 1, mb: 3}}>
@@ -39,7 +58,7 @@ export default function InformationTable({information}: { information?: Informat
                             key={row.dateTime + row.content}
                             sx={{'&:last-child td, &:last-child th': {border: 0}}}
                         >
-                            <TableCell width="20%" align="left">{row.dateTime}</TableCell>
+                            <TableCell width="20%" align="left">{formatDateTime(row.dateTime)}</TableCell>
                             <TableCell width="60%" align="left" sx={{ wordWrap: 'break-word'}}>{row.content}</TableCell>
                             <TableCell width="20%" align="left">{row.username}</TableCell>
                         </TableRow>
