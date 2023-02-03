@@ -13,6 +13,7 @@ import '@fontsource/roboto/700.css';
 import NewCustomerPage from "./pages/NewCustomerPage";
 import EditCustomerPage from "./pages/EditCustomerPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import SignUpPage from "./pages/SignUpPage";
 
 export default function Root() {
 
@@ -45,6 +46,11 @@ export default function Root() {
                         <Route path={"/login"} element={
                             <NoAuth redirect={redirect}>
                                 <LoginPage/>
+                            </NoAuth>
+                        }/>
+                        <Route path={"/signUp"} element={
+                            <NoAuth redirect={redirect}>
+                                <SignUpPage/>
                             </NoAuth>
                         }/>
                         <Route path={"*"} element={<NotFoundPage/>}/>
