@@ -4,7 +4,7 @@ import {FormCustomer} from "../customer-form";
 export default function useCsvUpload() {
 
     const [csvFile, setCsvFile] = useState();
-    const [newCustomerData, setNewCustomerData] = useState<FormCustomer>();
+    const [csvCustomerData, setCsvCustomerData] = useState<FormCustomer>();
     const fileReader = new FileReader();
 
     const handleOnChange = (e: any) => {
@@ -34,7 +34,7 @@ export default function useCsvUpload() {
             information: [],
             createdBy: ""
         };
-        setNewCustomerData(customer)
+        setCsvCustomerData(customer)
     }
 
     const handleOnSubmit = (e: any) => {
@@ -54,7 +54,7 @@ export default function useCsvUpload() {
     };
 
     return {
-        newCustomerData,
+        csvCustomerData,
         handleOnChange,
         handleOnSubmit
     }

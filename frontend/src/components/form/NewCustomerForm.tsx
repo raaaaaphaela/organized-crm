@@ -24,14 +24,13 @@ export default function NewCustomerForm() {
         save,
     } = useFormForNewCustomer();
 
-    const {newCustomerData, handleOnChange, handleOnSubmit} = useCsvUpload();
+    const {csvCustomerData, handleOnChange, handleOnSubmit} = useCsvUpload();
 
     useEffect(() => {
-        if (newCustomerData) {
-            setCustomer(newCustomerData)
+        if (csvCustomerData) {
+            setCustomer(csvCustomerData)
         }
-
-    }, [newCustomerData, setCustomer])
+    }, [csvCustomerData, setCustomer])
 
     return (
         <Paper variant={"outlined"} sx={{boxShadow: 4, my: 3, p: {xs: 2, md: 3}}}>
