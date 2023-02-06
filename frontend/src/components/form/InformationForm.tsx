@@ -11,6 +11,12 @@ import {useNavigate} from "react-router-dom";
 import {Information} from "../../customer-form";
 import {saveInformation} from "../../api-service/customer-service";
 
+export const createDate = () => {
+    let date = new Date();
+    date.setHours(date.getHours() + 1);
+    return date.toISOString().substring(0, (date.toISOString().indexOf("T") | 0) + 6 | 0);
+}
+
 export default function InformationForm({id}: { id: string | undefined }) {
 
     const [open, setOpen] = useState(false);
@@ -18,7 +24,7 @@ export default function InformationForm({id}: { id: string | undefined }) {
     const navigate = useNavigate();
 
     const [information, setInformation] = useState<Information>({
-        dateTime: new Date().toISOString().substring(0, (new Date().toISOString().indexOf("T") | 0) + 6 | 0),
+        dateTime: createDate(),
         content: "",
         username: "",
     });

@@ -3,6 +3,7 @@ import {FormCustomer, Information} from "../customer-form";
 import {savePDF} from "../api-service/file-service";
 import {saveCustomer} from "../api-service/customer-service";
 import {toast} from "react-toastify";
+import {createDate} from "../components/form/InformationForm";
 
 const defaultCustomer: FormCustomer = {
     "firstName": "",
@@ -26,11 +27,7 @@ export default function useFormForNewCustomer() {
     const [information, setInformation] = useState<Information>(
         {
             content: "",
-            dateTime: new Date()
-                .toISOString()
-                .substring(0, (new Date()
-                    .toISOString()
-                    .indexOf("T") | 0) + 6 | 0),
+            dateTime: createDate(),
             username: ""
         }
     );
@@ -98,6 +95,7 @@ export default function useFormForNewCustomer() {
 
     return {
         customer,
+        setCustomer,
         information,
         handleChange,
         handleInformationChange,
