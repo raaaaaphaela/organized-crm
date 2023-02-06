@@ -34,7 +34,7 @@ export default function AuthForm(
             <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
                 <LockOutlinedIcon/>
             </Avatar>
-            <Typography component="h1">Login</Typography>
+            <Typography component="h1">{buttonText.includes("Einloggen") ? "Login" : "Neuer Benutzer"}</Typography>
             <Box component="form"
                  onSubmit={onSubmit}
                  sx={{
