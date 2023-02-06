@@ -5,7 +5,7 @@ import Tooltip from "@mui/material/Tooltip";
 import * as React from "react";
 import {ChangeEventHandler} from "react";
 import {TextField} from "@mui/material";
-import MultipleDeletesDialog from "../MultipleDeletesDialog";
+import {MultipleDeletesDialog} from "../MultipleDeletesDialog";
 
 interface EnhancedTableToolbarProps {
     numSelected: number,
