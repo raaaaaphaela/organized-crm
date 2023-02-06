@@ -2,12 +2,10 @@ import Toolbar from "@mui/material/Toolbar";
 import {alpha} from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
 import * as React from "react";
 import {ChangeEventHandler} from "react";
-import {deleteCustomer} from "../../api-service/customer-service";
 import {TextField} from "@mui/material";
+import MultipleDeletesDialog from "../MultipleDeletesDialog";
 
 interface EnhancedTableToolbarProps {
     numSelected: number,
@@ -22,21 +20,11 @@ export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         handleInput
     } = props;
 
-    const handleDelete = () => {
-        selected.forEach(customerId => {
-            deleteCustomer(customerId)
-                .then(r => console.log(r.status))
-                .then(() => {
-                    window.location.reload();
-                });
-        });
-    }
-
     return (
         <Toolbar
             sx={{
                 pl: {sm: 2},
-                pt: 2,
+                py: 2,
                 pr: {xs: 1, sm: 1},
                 ...(numSelected > 0 && {
                     bgcolor: (theme) =>
@@ -51,23 +39,21 @@ export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
                     variant="subtitle1"
                     component="div"
                 >
-                    {numSelected} selected
+                    {numSelected} ausgewählt
                 </Typography>
             ) : (
-                    <Typography
-                        sx={{flex: '1 1 100%'}}
-                        variant="h6"
-                        id="tableTitle"
-                        component="div"
-                    >
-                        Kundenübersicht
-                    </Typography>
+                <Typography
+                    sx={{flex: '1 1 100%'}}
+                    variant="h6"
+                    id="tableTitle"
+                    component="div"
+                >
+                    Alle Kunden
+                </Typography>
             )}
             {numSelected > 0 ? (
                 <Tooltip title="Delete">
-                    <IconButton onClick={handleDelete}>
-                        <DeleteIcon/>
-                    </IconButton>
+                    <MultipleDeletesDialog selected={selected}/>
                 </Tooltip>
             ) : (
                 <TextField

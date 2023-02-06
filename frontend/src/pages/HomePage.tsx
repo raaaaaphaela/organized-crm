@@ -36,7 +36,7 @@ export default function HomePage() {
                     <Typography variant="h4">
                         KUNDENÜBERSICHT
                     </Typography>
-                    <Button sx={{my: 4, color: 'white'}} variant="contained" color={"info"} onClick={newCustomer}>Neuer Kunde</Button>
+                    <Button sx={{my: 4, color: 'white'}} variant="contained" onClick={newCustomer}>Neuer Kunde</Button>
                     <EnhancedTable/>
                 </Grid>
             </Container>

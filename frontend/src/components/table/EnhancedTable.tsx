@@ -184,7 +184,7 @@ export default function EnhancedTable() {
         <Box sx={{width: '100%'}}>
             <Paper sx={{ boxShadow: '8px 5px 31px -12px #062375',
                 border: 'none',
-                borderRadius: 3, py: 2, width: '100%', mb: 2}}>
+                borderRadius: 3, pb: 2, width: '100%', mb: 2}}>
                 <EnhancedTableToolbar
                     numSelected={selected.length}
                     selected={selected}
