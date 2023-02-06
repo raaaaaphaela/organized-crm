@@ -28,13 +28,13 @@ export default function DeleteDialog({id}: {
                     sx={{
                         mt: 3,
                         ml: 3,
-                        color: 'error.main',
+                        color: 'info.main',
                         border: 1,
-                        borderColor: 'error.main',
+                        borderColor: 'info.main',
                         "&:hover": {
-                            backgroundColor: 'error.main',
+                            backgroundColor: 'info.main',
                             color: 'white',
-                            borderColor: 'error.main'
+                            borderColor: 'info.main'
                         },
                     }}>Löschen</Button>
             <Modal
@@ -50,13 +50,13 @@ export default function DeleteDialog({id}: {
                     <Button onClick={handleDelete}
                             sx={{
                                 mt: 3,
-                                color: 'error.main',
+                                color: 'info.main',
                                 border: 1,
-                                borderColor: 'error.main',
+                                borderColor: 'info.main',
                                 "&:hover": {
-                                    backgroundColor: 'error.main',
+                                    backgroundColor: 'info.main',
                                     color: 'white',
-                                    borderColor: 'error.main'
+                                    borderColor: 'info.main'
                                 },
                             }}>
                         Ja, endgültig löschen

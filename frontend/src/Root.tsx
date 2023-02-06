@@ -4,8 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import {useMemo} from "react";
 import NoAuth from "./components/NoAuth";
 import HomePage from "./pages/HomePage";
-import NavBar from "./components/NavBar";
-import {Container, createTheme, ThemeProvider} from "@mui/material";
+import {createTheme, ThemeProvider} from "@mui/material";
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -33,6 +32,9 @@ export default function Root() {
             },
             secondary: {
                 main: '#0e43c9'
+            },
+            info: {
+                main: '#00b2b1'
             }
         }
     });
@@ -40,37 +42,34 @@ export default function Root() {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <NavBar/>
-                <Container sx={{pt: 6}}>
-                    <Routes>
-                        <Route path={"/login"} element={
-                            <NoAuth redirect={redirect}>
-                                <LoginPage/>
-                            </NoAuth>
-                        }/>
-                        <Route path={"/signUp"} element={
-                            <NoAuth redirect={redirect}>
-                                <SignUpPage/>
-                            </NoAuth>
-                        }/>
-                        <Route path={"*"} element={<NotFoundPage/>}/>
-                        <Route path={"/"} element={
-                            <Auth roles={["BASIC", "ADMIN"]}>
-                                <HomePage/>
-                            </Auth>
-                        }/>
-                        <Route path={"/new"} element={
-                            <Auth roles={["BASIC", "ADMIN"]}>
-                                <NewCustomerPage/>
-                            </Auth>
-                        }/>
-                        <Route path={"/edit/:id"} element={
-                            <Auth roles={["BASIC", "ADMIN"]}>
-                                <EditCustomerPage/>
-                            </Auth>
-                        }/>
-                    </Routes>
-                </Container>
+                <Routes>
+                    <Route path={"/login"} element={
+                        <NoAuth redirect={redirect}>
+                            <LoginPage/>
+                        </NoAuth>
+                    }/>
+                    <Route path={"/signUp"} element={
+                        <NoAuth redirect={redirect}>
+                            <SignUpPage/>
+                        </NoAuth>
+                    }/>
+                    <Route path={"*"} element={<NotFoundPage/>}/>
+                    <Route path={"/"} element={
+                        <Auth roles={["BASIC", "ADMIN"]}>
+                            <HomePage/>
+                        </Auth>
+                    }/>
+                    <Route path={"/new"} element={
+                        <Auth roles={["BASIC", "ADMIN"]}>
+                            <NewCustomerPage/>
+                        </Auth>
+                    }/>
+                    <Route path={"/edit/:id"} element={
+                        <Auth roles={["BASIC", "ADMIN"]}>
+                            <EditCustomerPage/>
+                        </Auth>
+                    }/>
+                </Routes>
             </ThemeProvider>
         </>
     )

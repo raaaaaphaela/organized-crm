@@ -182,7 +182,9 @@ export default function EnhancedTable() {
 
     return (
         <Box sx={{width: '100%'}}>
-            <Paper sx={{width: '100%', mb: 2}}>
+            <Paper sx={{ boxShadow: '8px 5px 31px -12px #062375',
+                border: 'none',
+                borderRadius: 3, py: 2, width: '100%', mb: 2}}>
                 <EnhancedTableToolbar
                     numSelected={selected.length}
                     selected={selected}
