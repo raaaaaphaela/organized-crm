@@ -1,5 +1,5 @@
 import Paper from "@mui/material/Paper";
-import {Button, Grid, TextField} from "@mui/material";
+import {Button, Grid, TextField, Typography} from "@mui/material";
 import FormItems from "./FormItems";
 import FileUpload from "./FileUpload";
 import FormButtons from "./FormButtons";
@@ -33,7 +33,14 @@ export default function NewCustomerForm() {
     }, [csvCustomerData, setCustomer])
 
     return (
-        <Paper variant={"outlined"} sx={{boxShadow: 4, my: 3, p: {xs: 2, md: 3}}}>
+        <Paper variant={"outlined"}
+               sx={{
+                   boxShadow: '8px 5px 31px -12px #062375',
+                   border: 'none',
+                   borderRadius: 3,
+                   my: 3,
+                   p: {xs: 2, md: 3}
+               }}>
             <div style={{textAlign: "center"}}>
                 <form>
                     <input
@@ -65,6 +72,9 @@ export default function NewCustomerForm() {
                     />
                 </Grid>
                 <Grid item xs={12}>
+                    <Typography variant="caption">
+                        Unterzeichnete DSGVO hochladen <sup>*</sup>
+                    </Typography> <br/>
                     <FileUpload setFile={setFile}/>
                 </Grid>
                 <FormButtons customer={customer} toHome={toHome}/>

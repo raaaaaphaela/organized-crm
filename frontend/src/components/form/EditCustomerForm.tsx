@@ -26,7 +26,13 @@ export default function EditCustomerForm(
     const toHome = () => navigate("/", {replace: true});
 
     return (
-        <Paper variant={"outlined"} sx={{boxShadow: 4, my: 3, p: {xs: 2, md: 3}}}>
+        <Paper variant={"outlined"}
+               sx={{
+                   boxShadow: '8px 5px 31px -12px #062375',
+                   border: 'none',
+                   borderRadius: 3,
+                   my: 3,
+                   p: {xs: 2, md: 3}}}>
             <Grid container component={"form"} spacing={3} sx={{pt: 2}} onSubmit={save}>
                 <FormItems customer={customer} handleChange={handleChange}/>
                     <Grid item xs={12}>
