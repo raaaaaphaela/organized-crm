@@ -12,9 +12,9 @@ export interface Customer {
     birthday: string,
     phone: string,
     street: string,
-    houseNo: number,
+    houseNo: string,
     city: string,
-    postalCode: number,
+    postalCode: string,
     createdBy: string,
 }
 

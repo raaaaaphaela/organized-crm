@@ -28,9 +28,9 @@ export default function useCsvUpload() {
             birthday: hashMap.get("birthday") || "",
             phone: hashMap.get("phone") || "",
             street: hashMap.get("street") || "",
-            houseNo: hashMap.get("houseNo") as number | string || "",
+            houseNo: hashMap.get("houseNo") || "",
             city: hashMap.get("city") || "",
-            postalCode: hashMap.get("postalCode") as number | string || "",
+            postalCode: hashMap.get("postalCode") || "",
             information: [],
             createdBy: ""
         };

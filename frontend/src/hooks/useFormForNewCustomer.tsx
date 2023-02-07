@@ -22,7 +22,6 @@ const defaultCustomer: FormCustomer = {
 export default function useFormForNewCustomer() {
 
     const [customer, setCustomer] = useState<FormCustomer>(defaultCustomer);
-    const [errors, setErrors] = useState<string[]>([]);
     const [file, setFile] = useState<File>();
     const [information, setInformation] = useState<Information>(
         {
@@ -62,8 +61,6 @@ export default function useFormForNewCustomer() {
     const save = (async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        setErrors([]);
-
         // save the customer
         try {
             const response = await saveCustomer(customer);
@@ -83,13 +80,8 @@ export default function useFormForNewCustomer() {
                 }
             }
             toast.success("Erfolgreich gespeichert!")
-        } catch (e) {
-            setErrors((errors) => [
-                ...errors,
-                "Invalid user data"
-            ]);
-            toast.error("Das hat leider nicht geklappt...")
-            console.log(errors)
+        } catch (e: any) {
+            toast.error("Die Eingaben sind fehlerhaft..")
         }
     });
 

@@ -3,6 +3,7 @@ package de.raphaeladohrmann.backend.customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,12 +25,12 @@ public class CustomerController {
     }
 
     @PostMapping
-    public Customer save(@RequestBody Customer customer) {
+    public Customer save(@Valid @RequestBody Customer customer) {
         return customerService.save(customer);
     }
 
     @PutMapping
-    public Customer update(@RequestBody Customer customer) {
+    public Customer update(@Valid @RequestBody Customer customer) {
         return customerService.save(customer);
     }
 

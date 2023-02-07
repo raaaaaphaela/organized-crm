@@ -63,8 +63,9 @@ export default function NewCustomerForm() {
                     <TextField
                         id={"information"}
                         name="information"
-                        label="Zusätzliche Informationen"
+                        label="Persönliche Informationen"
                         value={information.content}
+                        required
                         fullWidth
                         multiline
                         variant="standard"

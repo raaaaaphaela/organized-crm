@@ -12,9 +12,9 @@ export type FormCustomer = {
     birthday: string,
     phone: string,
     street: string,
-    houseNo: number | string,
+    houseNo: string,
     city: string,
-    postalCode: number | string,
+    postalCode: string,
     information: Information[],
     createdBy: string,
 }
