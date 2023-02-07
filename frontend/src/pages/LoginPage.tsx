@@ -9,20 +9,29 @@ export default function LoginPage() {
         redirect,
         credentials,
         navigate,
-        handleChange
+        handleChange,
+        errors, setErrors
     } = useAuthUser();
 
     const login = useCallback(
         async (e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
-            await axios.post("/api/app-users/login", null, {
-                headers: {
-                    "Authorization": "Basic " + window.btoa(`${credentials.username}:${credentials.password}`)
-                }
-            });
-            navigate(redirect);
+
+            try {
+                await axios.post("/api/app-users/login", null, {
+                    headers: {
+                        "Authorization": "Basic " + window.btoa(`${credentials.username}:${credentials.password}`)
+                    }
+                });
+                navigate(redirect);
+            } catch (e) {
+                setErrors((errors) => [
+                    ...errors,
+                    "Ungültige Benutzerdaten!"
+                ]);
+            }
         },
-        [credentials, navigate, redirect]
+        [credentials, navigate, redirect, setErrors]
     );
 
     return (
@@ -31,6 +40,7 @@ export default function LoginPage() {
             credentials={credentials}
             onSubmit={login}
             buttonText={"Einloggen"}
+            errors={errors}
         />
     )
 }
