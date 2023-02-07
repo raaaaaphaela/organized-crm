@@ -30,7 +30,7 @@ export default function FormButtons (
                 variant="outlined"
                 sx={{mt: 3, ml: 3}}
             >
-                {existingCustomer ? "Kundenübersicht" : "Abbrechen"}
+                {existingCustomer ? "Kundenübersicht" : "Zurück"}
             </Button></>
     )
 }

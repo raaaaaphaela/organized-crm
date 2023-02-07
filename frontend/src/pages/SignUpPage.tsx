@@ -29,10 +29,9 @@ export default function SignUpPage() {
                     ...errors,
                     "Ungültige Benutzerdaten!"
                 ]);
-                console.log(errors);
             }
         },
-        [credentials, navigate, location, errors, setErrors]
+        [credentials, navigate, location, setErrors]
     );
 
     return (

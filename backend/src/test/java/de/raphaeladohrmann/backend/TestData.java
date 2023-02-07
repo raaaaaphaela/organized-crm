@@ -45,10 +45,26 @@ public class TestData {
                 "birthday": "1995-06-11",
                 "phone": "+49017327482223",
                 "street": "Mondstr.",
-                "houseNo": 5,
+                "houseNo": "5",
                 "city": "Hamburg",
                 "information": [],
-                "postalCode": 22769
+                "postalCode": "22769"
+            }
+            """;
+
+    public final static String NEW_CUSTOMER_INVALID_POSTAL_CODE = """
+            {
+                "id": "123",
+                "firstName": "Max",
+                "lastName": "Mustermann",
+                "email": "maxi.must@test.de",
+                "birthday": "1995-06-11",
+                "phone": "+49017327482223",
+                "street": "Mondstr.",
+                "houseNo": "5",
+                "city": "Hamburg",
+                "information": [],
+                "postalCode": "2276"
             }
             """;
 
@@ -61,10 +77,10 @@ public class TestData {
                  "birthday": "1995-06-11",
                 "phone": "+49017327482223",
                 "street": "Mondstr.",
-                "houseNo": 5,
+                "houseNo": "5",
                 "city": "Hamburg",
                 "information": [],
-                "postalCode": 22769
+                "postalCode": "22769"
             }
             """;
 
@@ -77,10 +93,10 @@ public class TestData {
                 "birthday": "1995-06-11",
                 "phone": "+49017327482223",
                 "street": "Mondstr.",
-                "houseNo": 5,
+                "houseNo": "5",
                 "city": "Hamburg",
                 "information": [],
-                "postalCode": 22769,
+                "postalCode": "22769",
                 "createdBy": "user",
                 "belongsToCompany": "test"
             }]
@@ -95,10 +111,10 @@ public class TestData {
                 "birthday": "1995-06-11",
                 "phone": "+49017327482223",
                 "street": "Mondstr.",
-                "houseNo": 5,
+                "houseNo": "5",
                 "city": "Hamburg",
                 "information": [],
-                "postalCode": 22769,
+                "postalCode": "22769",
                 "createdBy": "user",
                 "belongsToCompany": "test"
             }
@@ -113,7 +129,7 @@ public class TestData {
                 "birthday": "1995-06-11",
                 "phone": "+49017327482223",
                 "street": "Mondstr.",
-                "houseNo": 5,
+                "houseNo": "5",
                 "city": "Hamburg",
                 "information": [
                     {
@@ -122,7 +138,7 @@ public class TestData {
                         "username":"user"
                     }
                 ],
-                "postalCode": 22769,
+                "postalCode": "22769",
                 "createdBy": "user",
                 "belongsToCompany": "test"
             }

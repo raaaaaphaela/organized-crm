@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Data
@@ -14,24 +15,35 @@ public class Customer {
 
     private String id;
 
+    @NotBlank
     private String firstName;
 
+    @NotBlank
     private String lastName;
 
+    @Email
     private String email;
 
+    @NotBlank
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private String birthday;
 
+    @NotBlank
     private String phone;
 
+    @NotBlank
     private String street;
 
-    private int houseNo;
+    @NotBlank
+    @Pattern(regexp="^\\d.*")
+    private String houseNo;
 
+    @NotBlank
     private String city;
 
-    private int postalCode;
+    @NotBlank
+    @Pattern(regexp = "\\d{5}")
+    private String postalCode;
 
     private List<Information> information;
 

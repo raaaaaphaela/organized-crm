@@ -6,7 +6,6 @@ import {toast} from "react-toastify";
 export default function useFormForExistingCustomer(existingCustomer: FormCustomer) {
 
     const [customer, setCustomer] = useState<FormCustomer>(existingCustomer);
-    const [errors, setErrors] = useState<string[]>([]);
 
     const handleChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,19 +18,12 @@ export default function useFormForExistingCustomer(existingCustomer: FormCustome
     const save = (async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        setErrors([]);
-
         // save the customer
         try {
             await updateCustomer(customer);
             toast.success("Erfolgreich geändert!")
         } catch (e) {
-            setErrors((errors) => [
-                ...errors,
-                "Invalid user data"
-            ]);
-            toast.error("Das hat leider nicht geklappt...")
-            console.log(errors)
+            toast.error("Ungültige Eingaben...")
         }
     });
 

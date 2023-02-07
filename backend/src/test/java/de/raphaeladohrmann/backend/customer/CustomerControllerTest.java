@@ -99,6 +99,21 @@ class CustomerControllerTest {
     }
 
     @Test
+    void save_whenCustomerHasInvalidFields_Return400() throws Exception {
+
+        // create user
+        saveNewTestUser();
+
+        // create invalid customer for user
+        mvc.perform(MockMvcRequestBuilders
+                        .post("/api/customers")
+                        .with(httpBasic("user", "password"))
+                        .contentType(MediaType.APPLICATION_JSON).content(
+                                TestData.NEW_CUSTOMER_INVALID_POSTAL_CODE))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void update_whenLoggedInAndExistingCustomer_Return200AndUpdatedCustomer() throws Exception {
 
         // create user
