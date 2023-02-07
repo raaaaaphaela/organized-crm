@@ -45,7 +45,6 @@ public class Customer {
     @Pattern(regexp = "\\d{5}")
     private String postalCode;
 
-    @NotEmpty
     private List<Information> information;
 
     private String createdBy;
