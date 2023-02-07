@@ -52,6 +52,22 @@ public class TestData {
             }
             """;
 
+    public final static String NEW_CUSTOMER_INVALID_POSTAL_CODE = """
+            {
+                "id": "123",
+                "firstName": "Max",
+                "lastName": "Mustermann",
+                "email": "maxi.must@test.de",
+                "birthday": "1995-06-11",
+                "phone": "+49017327482223",
+                "street": "Mondstr.",
+                "houseNo": "5",
+                "city": "Hamburg",
+                "information": [],
+                "postalCode": "2276"
+            }
+            """;
+
     public final static String UPDATED_CUSTOMER = """
             {
                 "id": "123",
