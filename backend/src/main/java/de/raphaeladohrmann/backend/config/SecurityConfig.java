@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .httpBasic().and()
                 .authorizeHttpRequests()
-                .antMatchers(HttpMethod.POST, "/api/app-users")
+                .antMatchers(HttpMethod.POST, "/api/app-users/**")
                 .permitAll()
                 .antMatchers("/api/**")
                 .hasRole("BASIC")
