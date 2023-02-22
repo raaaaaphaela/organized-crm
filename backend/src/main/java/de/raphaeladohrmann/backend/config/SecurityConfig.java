@@ -28,9 +28,9 @@ public class SecurityConfig {
                 .antMatchers("/api/app-users/**")
                 .permitAll()
                 .antMatchers("/api/**")
-                .hasRole("BASIC")
-                .anyRequest()
                 .authenticated()
+                .anyRequest()
+                .permitAll()
                 .and()
                 .build();
     }
