@@ -4,11 +4,6 @@ import LoginPage from "./pages/LoginPage";
 import {useMemo} from "react";
 import NoAuth from "./components/NoAuth";
 import HomePage from "./pages/HomePage";
-import {createTheme, ThemeProvider} from "@mui/material";
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
 import NewCustomerPage from "./pages/NewCustomerPage";
 import EditCustomerPage from "./pages/EditCustomerPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -21,27 +16,8 @@ export default function Root() {
         [searchParam]
     );
 
-    const theme = createTheme({
-        typography: {
-            fontFamily: 'Roboto'
-        },
-        palette: {
-            mode: 'light',
-            primary: {
-                main: '#062375'
-            },
-            secondary: {
-                main: '#0e43c9'
-            },
-            info: {
-                main: '#00b2b1'
-            }
-        }
-    });
-
     return (
         <>
-            <ThemeProvider theme={theme}>
                 <Routes>
                     <Route path={"/login"} element={
                         <NoAuth redirect={redirect}>
@@ -70,7 +46,6 @@ export default function Root() {
                         </Auth>
                     }/>
                 </Routes>
-            </ThemeProvider>
         </>
     )
 }
