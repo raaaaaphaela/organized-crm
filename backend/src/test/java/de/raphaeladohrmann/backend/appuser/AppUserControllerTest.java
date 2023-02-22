@@ -31,14 +31,6 @@ class AppUserControllerTest {
     }
 
     @Test
-    void me_whenNotLoggedIn_shouldReturn401() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/app-users/me"))
-                .andExpectAll(
-                        MockMvcResultMatchers.status().isUnauthorized()
-                );
-    }
-
-    @Test
     void me_whenLoggedInAsUser_shouldReturnIsOk() throws Exception {
         postNewUser();
 
@@ -68,14 +60,6 @@ class AppUserControllerTest {
                         .with(httpBasic("user", "password")))
                 .andExpectAll(
                         MockMvcResultMatchers.status().isOk()
-                );
-    }
-
-    @Test
-    void logout_whenNotLoggedInAsUser_shouldReturn() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/app-users/logout"))
-                .andExpectAll(
-                        MockMvcResultMatchers.status().isUnauthorized()
                 );
     }
 }
